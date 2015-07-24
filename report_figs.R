@@ -366,25 +366,30 @@ print(facetAdjust(p2))
 
 
 # Indonesia plots ---------------------------------------------------
-pdf(width=8, height=6, file='fig/IDNbox.pdf')
+pdf(width=8, height=5, file='fig/IDNbox.pdf')
 p1 <- qplot(year, inc, data=est['IDN'], geom='line', colour=I('blue')) +
   geom_ribbon(aes(year, ymin=inc.lo, ymax=inc.hi), fill=I('blue'), alpha=0.4) +
   geom_line(aes(year, newinc)) + 
   xlab('') + ylab('Rate per 100,000 population/year') +
+  ggtitle('Incidence') +
   expand_limits(y=0) +
   theme_bw(base_size=10) 
-p2 <- qplot(year, mort.nh, data=subset(hbc.ff3, iso3=='IDN'), geom='line', colour=I('blue'), linetype=forecast) +
+p2 <- qplot(year, mort.nh, data=subset(hbc.ff3, iso3=='IDN'), 
+            geom='line', colour=I('blue')) +
     geom_ribbon(aes(year, ymin=mort.nh.lo, ymax=mort.nh.hi), fill=I('blue'), alpha=0.4) +
     geom_hline(aes(yintercept=target.mort), linetype=2) +
     geom_point(aes(year, vr.raw), shape=I(4)) +
     xlab('') + ylab('Rate per 100,000 population/year') +
+  ggtitle('Mortality (HIV-neg)') +
     expand_limits(y=0) +
     theme_bw(base_size=10) +
     theme(legend.position='none')
-p3 <- qplot(year, prev, data=subset(hbc.ff2, iso3=='IDN'), geom='line', colour=I('blue')) +
+p3 <- qplot(year, prev, data=subset(hbc.ff2, iso3=='IDN'), 
+            geom='line', colour=I('blue')) +
     geom_ribbon(aes(year, ymin=prev.lo, ymax=prev.hi), fill=I('blue'), alpha=0.4) +
     geom_hline(aes(yintercept=target.prev), linetype=2) +
-    xlab('') + ylab('Rate per 100,000 population/year') +
+    xlab('') + ylab('Rate per 100,000 population') +
+    ggtitle('Prevalence') +
     expand_limits(y=0) +
     theme_bw(base_size=10) +
     theme(legend.position='none')
