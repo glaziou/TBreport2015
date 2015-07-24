@@ -320,7 +320,7 @@ levels(hbc.ff2$country)[match('Democratic Republic of the Congo', levels(hbc.ff2
 levels(hbc.ff2$country)[match('United Republic of Tanzania', levels(hbc.ff2$country))] <- 'UR Tanzania'
 
 
-pdf(width=8, height=8, file='fig/fig2_14_prevalence_22hbc.pdf')
+#pdf(width=8, height=8, file='fig/fig2_14_prevalence_22hbc.pdf')
 p1 <- qplot(year, prev, data=hbc.ff2, geom='line', colour=I('blue')) +
     geom_ribbon(aes(year, ymin=prev.lo, ymax=prev.hi), fill=I('blue'), alpha=0.4) +
     geom_hline(aes(yintercept=target.prev), linetype=2) +
@@ -337,11 +337,11 @@ dev.off()
 
 
 #pdf(width=8, height=8, file='fig/fig2_14_mortalityRates_hbc22.pdf')
-hbc.ff3 <- merge(hbc.ff2, est[, list(iso3,year,vr.tbrate.raw)], by=c('iso3','year'), all.x=TRUE, all.y=FALSE)
+hbc.ff3 <- merge(hbc.ff2, est[, list(iso3,year,vr.raw)], by=c('iso3','year'), all.x=TRUE, all.y=FALSE)
 p2 <- qplot(year, mort.nh, data=hbc.ff3, geom='line', colour=I('blue'), linetype=forecast) +
     geom_ribbon(aes(year, ymin=mort.nh.lo, ymax=mort.nh.hi), fill=I('blue'), alpha=0.4) +
     geom_hline(aes(yintercept=target.mort), linetype=2) +
-    geom_point(aes(year, vr.tbrate.raw), shape=I(4)) +
+    geom_point(aes(year, vr.raw), shape=I(4)) +
     facet_wrap(~country, scales='free_y') +
     xlab('') + ylab('Rate per 100,000 population/year') +
     expand_limits(y=0) +
@@ -365,7 +365,31 @@ print(facetAdjust(p2))
 
 
 
-
+# Indonesia plots ---------------------------------------------------
+pdf(width=8, height=6, file='fig/IDNbox.pdf')
+p1 <- qplot(year, inc, data=est['IDN'], geom='line', colour=I('blue')) +
+  geom_ribbon(aes(year, ymin=inc.lo, ymax=inc.hi), fill=I('blue'), alpha=0.4) +
+  geom_line(aes(year, newinc)) + 
+  xlab('') + ylab('Rate per 100,000 population/year') +
+  expand_limits(y=0) +
+  theme_bw(base_size=10) 
+p2 <- qplot(year, mort.nh, data=subset(hbc.ff3, iso3=='IDN'), geom='line', colour=I('blue'), linetype=forecast) +
+    geom_ribbon(aes(year, ymin=mort.nh.lo, ymax=mort.nh.hi), fill=I('blue'), alpha=0.4) +
+    geom_hline(aes(yintercept=target.mort), linetype=2) +
+    geom_point(aes(year, vr.raw), shape=I(4)) +
+    xlab('') + ylab('Rate per 100,000 population/year') +
+    expand_limits(y=0) +
+    theme_bw(base_size=10) +
+    theme(legend.position='none')
+p3 <- qplot(year, prev, data=subset(hbc.ff2, iso3=='IDN'), geom='line', colour=I('blue')) +
+    geom_ribbon(aes(year, ymin=prev.lo, ymax=prev.hi), fill=I('blue'), alpha=0.4) +
+    geom_hline(aes(yintercept=target.prev), linetype=2) +
+    xlab('') + ylab('Rate per 100,000 population/year') +
+    expand_limits(y=0) +
+    theme_bw(base_size=10) +
+    theme(legend.position='none')
+multiplot(p1, p3, p2, cols=3)
+dev.off()
 
 
 
@@ -374,15 +398,15 @@ print(facetAdjust(p2))
 # Maps
 #----------------------------------------------------
 library(whomap)
-yr <- 2013
-dta <- est[year==2013, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
+yr <- 2014
+dta <- est[year==2012, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
-# VR countries (2012)
-dta$var <- dta$source.mort %in% c("VR","VR imputed")
+# VR countries 
+dta$var <- dta$source.mort %in% c("VR","VR imputed","imputed")
 whomap(X=dta, Z=scale_fill_manual("VR/Survey", values=c('grey','darkgreen')), legendpos='none')
 
 ggsave(file='fig/fig2_11_map_VRcountries.pdf')
-write.csv(dta, file='output/vrCountries.csv', row.names=FALSE)
+write.csv(dta, file='tab/vrCountries.csv', row.names=FALSE)
 
 # Source TBHIV (2012)
 # dta$var <- dta$source.tbhiv
@@ -391,12 +415,14 @@ write.csv(dta, file='output/vrCountries.csv', row.names=FALSE)
 # ggsave(file='fig/map_sourceTBHIV.pdf')
 
 
-# source Incidence (2012)
+# source Incidence (2014)
+dta <- est[year==yr, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
+                            mort.num, source.inc, source.mort, source.prev)]
 dta$var <- dta$source.inc %in% c("Capture-recapture","High income","Survey")
 whomap(X=dta, Z=scale_fill_manual("Surveillance", values=c('grey','darkgreen')), legendpos='none')
 
 ggsave(file='fig/fig2_1_map_incmethod.pdf')
-write.csv(dta[, list(iso3, consult=var)], file='output/inc_method.csv', row.names=F)
+write.csv(dta[, list(iso3, consult=var)], file='tab/inc_method.csv', row.names=F)
 
 
 
