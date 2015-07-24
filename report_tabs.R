@@ -1,16 +1,18 @@
 ##################################################
 # Author:   Philippe Glaziou
-# Updated:  16/07/2013
+# Updated:  24/07/2015
 #
 # Global TB Report EPI tables
 ##################################################
 library(data.table)
 
 rm(list=ls())
-source('fun.R')
 
 m <- 100000
 
+setwd('../tbreport2015')
+
+source('fun.R')
 
 
 
@@ -30,7 +32,7 @@ load('Rdata/hbc.Rdata')
 #--------------------------------------------
 # Table 2.1 epi burden (absolute numbers)
 #--------------------------------------------
-yr <- 2013
+yr <- 2014
 tab1.1 <- subset(est, g.hbc22=='high' & !is.na(g.hbc22) & year==yr, 
   select=c('country','e.pop.num','mort.nh.num','mort.nh.lo.num','mort.nh.hi.num',
            'mort.h.num','mort.h.lo.num','mort.h.hi.num',
@@ -89,7 +91,7 @@ tab1s <- tab1s[, c('rowname', 'mort.nh.num','mort.nh.bounds',
 
 (tab1s)
 
-write.csv(tab1s, file='tbreport/tables/tab2_1.csv', row.names=FALSE)
+write.csv(tab1s, file='tab/tab2_1.csv', row.names=FALSE)
 
 
 
@@ -148,7 +150,7 @@ tab1bs <- tab1bs[, c('rowname', 'mort.nh','mort.nh.bounds',
 
 (tab1bs)
 
-write.csv(tab1bs, file='tbreport/tables/tab2_2.csv', row.names=FALSE)
+write.csv(tab1bs, file='tab/tab2_2.csv', row.names=FALSE)
 
 
 
@@ -177,12 +179,11 @@ write.csv(tab1bs, file='tbreport/tables/tab2_2.csv', row.names=FALSE)
 #(top6 <- head(est[year==2012][order(inc.h.num, decreasing=T), list(country, mort)], 10))
 
 
-write.csv(top1, file='tbreport/tables/tab2_3_top10inc.csv', row.names=FALSE)
-write.csv(top2, file='tbreport/tables/tab2_3_top10incnum.csv', row.names=FALSE)
-write.csv(top3, file='tbreport/tables/tab2_3_top10deaths.csv', row.names=FALSE)
-write.csv(top4, file='tbreport/tables/tab2_3_top10mort.csv', row.names=FALSE)
-write.csv(top5, file='tbreport/tables/tab2_3_top10hivtb.csv', row.names=FALSE)
-#write.csv(top6, file='tbreport/tables/tab2_3_top10mdr.csv', row.names=FALSE)
+write.csv(top1, file='tab/tab2_3_top10inc.csv', row.names=FALSE)
+write.csv(top2, file='tab/tab2_3_top10incnum.csv', row.names=FALSE)
+write.csv(top3, file='tab/tab2_3_top10deaths.csv', row.names=FALSE)
+write.csv(top4, file='tab/tab2_3_top10mort.csv', row.names=FALSE)
+write.csv(top5, file='tab/tab2_3_top10hivtb.csv', row.names=FALSE)
 
 
 
@@ -258,7 +259,7 @@ names(tab2.1)[1] <- names(tab2.2)[1] <- 'rowname'
 tab2 <- rbind(tab2.1, tab2.2)
 (tab2)
 
-write.csv(tab2, file='tbreport/tables/tab4_1.csv', row.names=FALSE)
+write.csv(tab2, file='tab/tab4_1.csv', row.names=FALSE)
 
 
 
@@ -327,19 +328,19 @@ tab4s$cdr.2005.bounds <- paste("(", as.character(signif(tab4s$cdr.lo.2005,3)),"-
 tab4s$cdr.2010.bounds <- paste("(", as.character(signif(tab4s$cdr.lo.2010,3)),"-", 
                                 as.character(signif(tab4s$cdr.hi.2010, 3)), ")", sep='')
 
-tab4s$cdr.2013.bounds <- paste("(", as.character(signif(tab4s$cdr.lo.2013,3)),"-", 
-                                as.character(signif(tab4s$cdr.hi.2013, 3)), ")", sep='')
+tab4s$cdr.2014.bounds <- paste("(", as.character(signif(tab4s$cdr.lo.2014,3)),"-", 
+                                as.character(signif(tab4s$cdr.hi.2014, 3)), ")", sep='')
 
 
 tab4s <- tab4s[, c('rowname', 'cdr.1995','cdr.1995.bounds',
                    'cdr.2000','cdr.2000.bounds',
                    'cdr.2005','cdr.2005.bounds',
                    'cdr.2010','cdr.2010.bounds',
-                   'cdr.2013','cdr.2013.bounds')]
+                   'cdr.2014','cdr.2014.bounds')]
 
 (tab4s)
 
-write.csv(tab4s, file='tbreport/tables/tab4_5.csv', row.names=FALSE)
+write.csv(tab4s, file='tab/tab4_5.csv', row.names=FALSE)
 
 
 
@@ -355,7 +356,7 @@ write.csv(tab4s, file='tbreport/tables/tab4_5.csv', row.names=FALSE)
 #--------------------------------------------
 tab <- as.data.frame(est[year==yr][, list(g.whoregion, country, source.inc, source.mort, source.prev)][order(g.whoregion, country)])
 (tab)
-write.csv(tab, 'tbreport/tables/annex1_data_sources.csv', row.names=FALSE)
+write.csv(tab, 'tab/annex1_data_sources.csv', row.names=FALSE)
 
 
 
@@ -373,7 +374,8 @@ tabvr2 <- vr[, list(dropped.points=sum(!keep.vr),
 
 tabvr3 <- merge(tabvr, tabvr2)
 
-write.csv(tabvr3[, list(iso3, tot.points, vr.points, dropped.points, highest.cov, lowest.garbage)], file='output/sourcemort.csv', row.names=F)
+write.csv(tabvr3[, list(iso3, tot.points, vr.points, dropped.points, highest.cov, lowest.garbage)], 
+          file='tab/sourcemort.csv', row.names=F)
 
 
 # add imputation methods
@@ -381,27 +383,8 @@ tabvr4 <- est[year==yr, list(iso3, source.mort)]
 tabvr5 <- merge(tabvr3, tabvr4, all=TRUE)
 table(tabvr5$source.mort)
 
-fa <- c('BEN','BFA','BDI','CMR','CAF','TCD','COM','COD','COG','CIV','GNQ','GAB','GIN',
-        'MDG','MLI','NER','RWA','SEN','TGO')
-eco <- c(fa, 'PNG','NAM','ETH','ERI','LAO','SSD','SDN')
-
-#tabvr5$source.mort[tabvr5$iso3 %in% eco] <- 'Ecological'
-tabvr5$source.mort[tabvr5$source.mort=='Indirect'] <- 'CFR'
-tabvr5$source.mort[tabvr5$source.mort=='VR imputed'] <- 'VR'
-tabvr5$source.mort[is.na(tabvr5$source.mort)] <- 'CFR'
-table(tabvr5$source.mort)
 tabvr5$vr.points[is.na(tabvr5$vr.points)] <- 0
 
-write.csv(tabvr5[, list(iso3, vr.points, source.mort)], file='output/sourcemort.csv', row.names=F)
-
-
-
-
-
-
-
-
-
-
+write.csv(tabvr5[, list(iso3, vr.points, source.mort)], file='tab/sourcemort.csv', row.names=F)
 
 

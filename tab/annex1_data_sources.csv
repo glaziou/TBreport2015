@@ -1,0 +1,218 @@
+"g.whoregion","country","source.inc","source.mort","source.prev"
+"AFR","Algeria","Expert opinion","indirect",NA
+"AFR","Angola","Expert opinion","indirect",NA
+"AFR","Benin","Expert opinion","indirect",NA
+"AFR","Botswana","Expert opinion","indirect",NA
+"AFR","Burkina Faso","Expert opinion","indirect",NA
+"AFR","Burundi","Expert opinion","indirect",NA
+"AFR","Cabo Verde","Expert opinion","indirect",NA
+"AFR","Cameroon","Expert opinion","indirect",NA
+"AFR","Central African Republic","Expert opinion","indirect",NA
+"AFR","Chad","Expert opinion","indirect",NA
+"AFR","Comoros","Expert opinion","indirect",NA
+"AFR","Congo","Expert opinion","indirect",NA
+"AFR","Côte d'Ivoire","Expert opinion","indirect",NA
+"AFR","Democratic Republic of the Congo","Expert opinion","indirect",NA
+"AFR","Equatorial Guinea","Expert opinion","indirect",NA
+"AFR","Eritrea","Expert opinion","indirect",NA
+"AFR","Ethiopia","Survey","indirect","survey"
+"AFR","Gabon","Expert opinion","indirect",NA
+"AFR","Gambia","Expert opinion","indirect","survey"
+"AFR","Ghana","Survey","indirect","survey"
+"AFR","Guinea","Expert opinion","indirect",NA
+"AFR","Guinea-Bissau","Expert opinion","indirect",NA
+"AFR","Kenya","Expert opinion","indirect",NA
+"AFR","Lesotho","Expert opinion","indirect",NA
+"AFR","Liberia","Expert opinion","indirect",NA
+"AFR","Madagascar","Expert opinion","indirect",NA
+"AFR","Malawi","Survey","indirect","survey"
+"AFR","Mali","Expert opinion","indirect",NA
+"AFR","Mauritania","Expert opinion","indirect",NA
+"AFR","Mauritius","Expert opinion","imputed",NA
+"AFR","Mozambique","Expert opinion","indirect",NA
+"AFR","Namibia","Expert opinion","indirect",NA
+"AFR","Niger","Expert opinion","indirect",NA
+"AFR","Nigeria","Survey","indirect","survey"
+"AFR","Rwanda","Expert opinion","indirect","survey"
+"AFR","Sao Tome and Principe","Expert opinion","indirect",NA
+"AFR","Senegal","Expert opinion","indirect",NA
+"AFR","Seychelles","High income","imputed",NA
+"AFR","Sierra Leone","Expert opinion","indirect",NA
+"AFR","South Africa","Expert opinion","imputed",NA
+"AFR","South Sudan","Neighbour","indirect","indirect"
+"AFR","Swaziland","Expert opinion","indirect",NA
+"AFR","Togo","Expert opinion","indirect",NA
+"AFR","Uganda","Expert opinion","indirect",NA
+"AFR","United Republic of Tanzania","Expert opinion","indirect",NA
+"AFR","Zambia","Survey","indirect","survey"
+"AFR","Zimbabwe","Survey","indirect","survey"
+"AMR","Anguilla","Expert opinion","imputed",NA
+"AMR","Antigua and Barbuda","High income","imputed",NA
+"AMR","Argentina","High income","imputed",NA
+"AMR","Aruba","High income","indirect",NA
+"AMR","Bahamas","High income","imputed",NA
+"AMR","Barbados","High income","imputed",NA
+"AMR","Belize","Expert opinion","imputed",NA
+"AMR","Bermuda","High income","imputed",NA
+"AMR","Bolivia (Plurinational State of)","Expert opinion","imputed",NA
+"AMR","Bonaire, Saint Eustatius and Saba","Expert opinion","indirect",NA
+"AMR","Brazil","Expert opinion","imputed",NA
+"AMR","British Virgin Islands","Expert opinion","imputed",NA
+"AMR","Canada","High income","imputed",NA
+"AMR","Cayman Islands","High income","imputed",NA
+"AMR","Chile","High income","imputed",NA
+"AMR","Colombia","Expert opinion","imputed",NA
+"AMR","Costa Rica","Expert opinion","imputed",NA
+"AMR","Cuba","Expert opinion","imputed",NA
+"AMR","Curaçao","High income","indirect",NA
+"AMR","Dominica","Expert opinion","imputed",NA
+"AMR","Dominican Republic","Expert opinion","imputed",NA
+"AMR","Ecuador","Expert opinion","imputed",NA
+"AMR","El Salvador","Expert opinion","imputed",NA
+"AMR","Grenada","Expert opinion","imputed",NA
+"AMR","Guatemala","Expert opinion","imputed",NA
+"AMR","Guyana","Expert opinion","imputed",NA
+"AMR","Haiti","Expert opinion","imputed","indirect"
+"AMR","Honduras","Expert opinion","imputed",NA
+"AMR","Jamaica","Expert opinion","imputed",NA
+"AMR","Mexico","Mortality","imputed",NA
+"AMR","Montserrat","Expert opinion","imputed",NA
+"AMR","Nicaragua","Expert opinion","imputed",NA
+"AMR","Panama","Expert opinion","imputed",NA
+"AMR","Paraguay","Expert opinion","imputed",NA
+"AMR","Peru","Expert opinion","imputed",NA
+"AMR","Puerto Rico","High income","imputed",NA
+"AMR","Saint Kitts and Nevis","High income","imputed",NA
+"AMR","Saint Lucia","Expert opinion","imputed",NA
+"AMR","Saint Vincent and the Grenadines","Expert opinion","imputed",NA
+"AMR","Sint Maarten (Dutch part)","High income","indirect",NA
+"AMR","Suriname","Expert opinion","imputed",NA
+"AMR","Trinidad and Tobago","High income","imputed",NA
+"AMR","Turks and Caicos Islands","High income","imputed",NA
+"AMR","US Virgin Islands","High income","imputed",NA
+"AMR","United States of America","High income","imputed",NA
+"AMR","Uruguay","High income","imputed",NA
+"AMR","Venezuela (Bolivarian Republic of)","High income","imputed",NA
+"EMR","Afghanistan","Expert opinion","indirect",NA
+"EMR","Bahrain","High income","imputed",NA
+"EMR","Djibouti","Expert opinion","indirect",NA
+"EMR","Egypt","Expert opinion","imputed",NA
+"EMR","Iran (Islamic Republic of)","Expert opinion","indirect",NA
+"EMR","Iraq","Capture-recapture","imputed",NA
+"EMR","Jordan","Expert opinion","imputed",NA
+"EMR","Kuwait","High income","imputed",NA
+"EMR","Lebanon","Expert opinion","indirect",NA
+"EMR","Libya","Expert opinion","indirect",NA
+"EMR","Morocco","Expert opinion","imputed",NA
+"EMR","Oman","High income","imputed",NA
+"EMR","Pakistan","Expert opinion","indirect","survey"
+"EMR","Qatar","High income","imputed",NA
+"EMR","Saudi Arabia","High income","imputed",NA
+"EMR","Somalia","Expert opinion","indirect",NA
+"EMR","Sudan","Survey","indirect","survey"
+"EMR","Syrian Arab Republic","Expert opinion","imputed",NA
+"EMR","Tunisia","Expert opinion","imputed",NA
+"EMR","United Arab Emirates","Expert opinion","imputed",NA
+"EMR","West Bank and Gaza Strip","Neighbour","imputed",NA
+"EMR","Yemen","Capture-recapture","indirect",NA
+"EUR","Albania","Expert opinion","imputed",NA
+"EUR","Andorra","High income","indirect",NA
+"EUR","Armenia","Mortality","imputed",NA
+"EUR","Austria","High income","imputed",NA
+"EUR","Azerbaijan","Mortality","imputed",NA
+"EUR","Belarus","Mortality","imputed",NA
+"EUR","Belgium","High income","imputed",NA
+"EUR","Bosnia and Herzegovina","Expert opinion","imputed",NA
+"EUR","Bulgaria","Mortality","imputed",NA
+"EUR","Croatia","High income","imputed",NA
+"EUR","Cyprus","High income","imputed",NA
+"EUR","Czech Republic","High income","imputed",NA
+"EUR","Denmark","High income","imputed",NA
+"EUR","Estonia","High income","imputed",NA
+"EUR","Finland","High income","imputed",NA
+"EUR","France","Survey","imputed",NA
+"EUR","Georgia","Mortality","imputed",NA
+"EUR","Germany","High income","imputed",NA
+"EUR","Greece","High income","imputed",NA
+"EUR","Greenland","High income","indirect",NA
+"EUR","Hungary","High income","imputed",NA
+"EUR","Iceland","High income","imputed",NA
+"EUR","Ireland","High income","imputed",NA
+"EUR","Israel","High income","imputed",NA
+"EUR","Italy","High income","imputed",NA
+"EUR","Kazakhstan","Mortality","imputed","indirect"
+"EUR","Kyrgyzstan","Mortality","imputed",NA
+"EUR","Latvia","High income","imputed",NA
+"EUR","Lithuania","High income","imputed",NA
+"EUR","Luxembourg","High income","imputed",NA
+"EUR","Malta","High income","imputed",NA
+"EUR","Monaco","High income","indirect",NA
+"EUR","Montenegro","Expert opinion","imputed",NA
+"EUR","Netherlands","High income","imputed",NA
+"EUR","Norway","High income","imputed",NA
+"EUR","Poland","High income","imputed",NA
+"EUR","Portugal","High income","imputed",NA
+"EUR","Republic of Moldova","Mortality","imputed",NA
+"EUR","Romania","Mortality","imputed",NA
+"EUR","Russian Federation","High income","imputed",NA
+"EUR","San Marino","High income","imputed",NA
+"EUR","Serbia","Expert opinion","imputed",NA
+"EUR","Slovakia","High income","imputed",NA
+"EUR","Slovenia","High income","imputed",NA
+"EUR","Spain","High income","imputed",NA
+"EUR","Sweden","High income","imputed",NA
+"EUR","Switzerland","High income","imputed",NA
+"EUR","Tajikistan","Mortality","imputed",NA
+"EUR","The Former Yugoslav Republic of Macedonia","Expert opinion","imputed",NA
+"EUR","Turkey","High income","imputed","expert opinion"
+"EUR","Turkmenistan","Mortality","imputed",NA
+"EUR","Ukraine","Mortality","imputed",NA
+"EUR","United Kingdom of Great Britain and Northern Ireland","Capture-recapture","imputed",NA
+"EUR","Uzbekistan","Mortality","imputed",NA
+"SEA","Bangladesh","Expert opinion","indirect",NA
+"SEA","Bhutan","Trends ARI","indirect",NA
+"SEA","Democratic People's Republic of Korea","Expert opinion","indirect","NTP"
+"SEA","India","Expert opinion","imputed","survey"
+"SEA","Indonesia","Expert opinion","imputed","survey"
+"SEA","Maldives","Expert opinion","imputed",NA
+"SEA","Myanmar","Expert opinion","indirect","survey"
+"SEA","Nepal","Expert opinion","indirect",NA
+"SEA","Sri Lanka","Expert opinion","imputed",NA
+"SEA","Thailand","Survey","imputed","survey"
+"SEA","Timor-Leste","Expert opinion","indirect",NA
+"WPR","American Samoa","Expert opinion","indirect",NA
+"WPR","Australia","High income","imputed",NA
+"WPR","Brunei Darussalam","High income","imputed",NA
+"WPR","Cambodia","Survey","indirect","survey"
+"WPR","China","Expert opinion","imputed","survey"
+"WPR","China, Hong Kong SAR","High income","imputed",NA
+"WPR","China, Macao SAR","High income","imputed",NA
+"WPR","Cook Islands","Expert opinion","indirect",NA
+"WPR","Fiji","Expert opinion","imputed",NA
+"WPR","French Polynesia","High income","indirect",NA
+"WPR","Guam","High income","indirect",NA
+"WPR","Japan","High income","imputed",NA
+"WPR","Kiribati","Expert opinion","imputed",NA
+"WPR","Lao People's Democratic Republic","Survey","indirect","survey"
+"WPR","Malaysia","Expert opinion","imputed",NA
+"WPR","Marshall Islands","Expert opinion","indirect",NA
+"WPR","Micronesia (Federated States of)","Expert opinion","indirect",NA
+"WPR","Mongolia","Expert opinion","imputed",NA
+"WPR","Nauru","Expert opinion","indirect",NA
+"WPR","New Caledonia","High income","indirect",NA
+"WPR","New Zealand","High income","imputed",NA
+"WPR","Niue","Expert opinion","indirect",NA
+"WPR","Northern Mariana Islands","High income","indirect",NA
+"WPR","Palau","Expert opinion","indirect",NA
+"WPR","Papua New Guinea","Expert opinion","indirect",NA
+"WPR","Philippines","Expert opinion","imputed","survey"
+"WPR","Republic of Korea","High income","imputed",NA
+"WPR","Samoa","Expert opinion","indirect",NA
+"WPR","Singapore","High income","imputed",NA
+"WPR","Solomon Islands","Expert opinion","indirect",NA
+"WPR","Tokelau","Expert opinion","indirect",NA
+"WPR","Tonga","Expert opinion","indirect",NA
+"WPR","Tuvalu","Expert opinion","indirect",NA
+"WPR","Vanuatu","Expert opinion","indirect",NA
+"WPR","Viet Nam","Expert opinion","imputed","survey"
+"WPR","Wallis and Futuna Islands","Expert opinion","indirect",NA
