@@ -261,6 +261,7 @@ p1 <- qplot(year, inc, data=as.data.frame(hest), geom='line', colour=I('blue')) 
     expand_limits(y=0) +
     theme_bw(base_size=8) 
 print(facetAdjust(p1))
+ggsave('fig/fig2_8_incidence_22hbc.pdf', width=10, height=8)
 #dev.off()
 
 # notifs and incidence (chapter 3)
@@ -273,6 +274,7 @@ p2 <- qplot(year, inc, data=as.data.frame(hest), geom='line', colour=I('blue')) 
   expand_limits(y=0) +
   theme_bw(base_size=8) 
 print(facetAdjust(p2))
+ggsave('fig/fig3_3_incidenceRates_22hbc.pdf', width=10, height=8)
 #dev.off()
 
 
@@ -330,8 +332,8 @@ p1 <- qplot(year, prev, data=hbc.ff2, geom='line', colour=I('blue')) +
     theme_bw(base_size=8) +
     theme(legend.position='none')
 print.facetAdjust(facetAdjust(p1))
-#ggsave(file='fig/fig2_14_prevalence_22hbc.pdf', width=8, height=8)
-dev.off()
+ggsave(file='fig/fig2_14_prevalence_22hbc.pdf', width=10, height=8)
+#dev.off()
 
 
 
@@ -348,6 +350,7 @@ p2 <- qplot(year, mort.nh, data=hbc.ff3, geom='line', colour=I('blue'), linetype
     theme_bw(base_size=8) +
     theme(legend.position='none')
 print(facetAdjust(p2))
+ggsave(file='fig/fig2_14_mortalityRates_hbc22.pdf', width=10, height=8)
 #dev.off()
 #ggsave(file='fig/fig2_14b_mortality_22hbc.pdf', width=8, height=8)
 
@@ -360,7 +363,7 @@ p2 <- qplot(year, mort.h, data=subset(est, g.hbc22=='high'), geom='line', colour
   expand_limits(y=0) +
   theme_bw(base_size=8)
 print(facetAdjust(p2))
-#ggsave(file='fig/fig2_14c_mortalityHIVpos_22hbc.pdf', width=8, height=8)
+ggsave(file='fig/fig2_14c_mortalityHIVpos_22hbc.pdf', width=10, height=8)
 #dev.off()
 
 
@@ -399,6 +402,40 @@ dev.off()
 
 
 
+# India plots ---------------------------------------------------
+pdf(width=8, height=5, file='fig/INDbox.pdf')
+p1 <- qplot(year, inc, data=est['IND'], geom='line', colour=I('blue')) +
+  geom_ribbon(aes(year, ymin=inc.lo, ymax=inc.hi), fill=I('blue'), alpha=0.4) +
+  geom_line(aes(year, newinc)) + 
+  xlab('') + ylab('Rate per 100,000 population/year') +
+  ggtitle('Incidence') +
+  expand_limits(y=0) +
+  theme_bw(base_size=10) 
+p2 <- qplot(year, mort.nh, data=subset(hbc.ff3, iso3=='IND'), 
+            geom='line', colour=I('blue')) +
+    geom_ribbon(aes(year, ymin=mort.nh.lo, ymax=mort.nh.hi), fill=I('blue'), alpha=0.4) +
+    geom_hline(aes(yintercept=target.mort), linetype=2) +
+    geom_point(aes(year, vr.raw), shape=I(4)) +
+    xlab('') + ylab('Rate per 100,000 population/year') +
+  ggtitle('Mortality (HIV-neg)') +
+    expand_limits(y=0) +
+    theme_bw(base_size=10) +
+    theme(legend.position='none')
+p3 <- qplot(year, prev, data=subset(hbc.ff2, iso3=='IND'), 
+            geom='line', colour=I('blue')) +
+    geom_ribbon(aes(year, ymin=prev.lo, ymax=prev.hi), fill=I('blue'), alpha=0.4) +
+    geom_hline(aes(yintercept=target.prev), linetype=2) +
+    xlab('') + ylab('Rate per 100,000 population') +
+    ggtitle('Prevalence') +
+    expand_limits(y=0) +
+    theme_bw(base_size=10) +
+    theme(legend.position='none')
+multiplot(p1, p3, p2, cols=3)
+dev.off()
+
+
+
+
 #----------------------------------------------------
 # Maps
 #----------------------------------------------------
@@ -410,7 +447,7 @@ dta <- est[year==2012, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv,
 dta$var <- dta$source.mort %in% c("VR","VR imputed","imputed")
 whomap(X=dta, Z=scale_fill_manual("VR/Survey", values=c('grey','darkgreen')), legendpos='none')
 
-ggsave(file='fig/fig2_11_map_VRcountries.pdf')
+ggsave(file='fig/fig2_11_map_VRcountries.pdf', width=10, height=8)
 write.csv(dta, file='tab/vrCountries.csv', row.names=FALSE)
 
 # Source TBHIV (2012)
@@ -426,7 +463,7 @@ dta <- est[year==yr, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, m
 dta$var <- dta$source.inc %in% c("Capture-recapture","High income","Survey")
 whomap(X=dta, Z=scale_fill_manual("Surveillance", values=c('grey','darkgreen')), legendpos='none')
 
-ggsave(file='fig/fig2_1_map_incmethod.pdf')
+ggsave(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
 write.csv(dta[, list(iso3, consult=var)], file='tab/inc_method.csv', row.names=F)
 
 
@@ -447,7 +484,7 @@ tot <- c(amr, emr, sea, afr, wpr, eur)
 dta$var <- dta$iso3 %in% tot
 whomap(X=dta, Z=scale_fill_manual("Surveillance", values=c('grey','darkgreen')), legendpos='none')
 
-ggsave(file='fig/fig2_5_map_ctyconsult.pdf')
+ggsave(file='fig/fig2_5_map_ctyconsult.pdf', width=10, height=8)
 
 
 # incidence
@@ -455,7 +492,7 @@ dta$var <- cut(dta$inc, c(0, 25, 50, 100, 200, 300, Inf),
                c('0-24.9', '25-49.9', '50-99', '100-199.9', '200-299', '300+'), 
                right=F, ordered_result=T)
 whomap(X=dta, Z=scale_fill_brewer("Incidence\nper 100,000", palette="YlGnBu", type="seq"))
-ggsave(file='fig/fig2_5_map_incidenceRates.pdf')
+ggsave(file='fig/fig2_5_map_incidenceRates.pdf', width=10, height=8)
 
 
 
@@ -464,7 +501,7 @@ dta$var <- cut(dta$mort.nh, c(0, 1, 2, 5, 10, 20, 40, Inf),
                c('0-0.9', '1-1.9', '2-4.9', '5-9.9', '10-19','20-39','40+'), 
                right=F, ordered_result=T)
 whomap(X=dta, Z=scale_fill_brewer("Mortality\nper 100,000", palette="YlGnBu", type="seq"))
-ggsave(file='fig/fig2_12_map_mortalityRatesHIVneg.pdf')
+ggsave(file='fig/fig2_12_map_mortalityRatesHIVneg.pdf', width=10, height=8)
 
 
 
@@ -481,7 +518,7 @@ dta$var <- cut(dta$tbhiv*100, c(0, 1, 2, 5, 10, 20, 50, Inf),
                c('0-0.9', '1-1.9', '2-4.9', '5-9.9', '10-19', '20-49','50+'), 
                right=F, ordered_result=T)
 whomap(X=dta, Z=scale_fill_brewer("HIV Prevalence\namong TB (%)", palette="YlGnBu", type="seq"))
-ggsave(file='fig/fig2_4_map_HIVamongTB.pdf')
+ggsave(file='fig/fig2_4_map_HIVamongTB.pdf', width=10, height=8)
 
 
 
@@ -506,5 +543,5 @@ dta$var <- factor(dta$var,
 (table(dta$var))
 
 whomap(X=dta, Z=scale_fill_manual("Prevalence survey", values=c('grey','lightblue','blue','yellow4','brown','green4')), legendpos=c(0.14, 0.3))
-ggsave(file='fig/fig2_9_map_prevalence_surveys.pdf')
+ggsave(file='fig/fig2_9_map_prevalence_surveys.pdf', width=10, height=8)
 
