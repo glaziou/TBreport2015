@@ -15,6 +15,106 @@ m <- 100000
 
 
 
+
+
+
+
+
+
+#--------------------------------------------
+# Global IRR
+#--------------------------------------------
+load('Rdata/global.Rdata')
+load('Rdata/est.Rdata')
+phiv <- est[, list(hiv=sum(hiv*e.pop.num, na.rm=T)/sum(e.pop.num, na.rm=T), hiv.sd=sqrt(sum(hiv.sd^2, na.rm=T))), by=year]
+(phiv)
+global <- merge(global, phiv, by='year')
+set.seed(123)
+for (i in 1:dim(global)[1]){
+  print(paste(round(i/dim(global)[1] * 100, 1), '%',.sdp=''))
+  inc.h <- betaop(global$inc.h[i]/m, global$hiv[i], global$inc.h.sd[i]/m, global$hiv.sd[i]/m, op='/', nsim=m)
+  inc.nh <-betaop(global$inc.nh[i]/m, (1 - global$hiv[i]), global$inc.h.sd[i]/m, global$hiv.sd[i]/m, op='/', nsim=m)
+  
+  ratio <- betaop(inc.h[1], inc.nh[1], inc.h[2], inc.nh[2], op='/', nsim=m)
+  global$irr[i] <- ratio[1]          # TB incidence rate ratio HIV+/HIV-
+  global$irr.sd[i] <- ratio[2]
+  global$irr.lo[i] <- ratio[3]
+  global$irr.hi[i] <- ratio[4]
+  global$inc.hpos[i] <- inc.h[1]     # TB incidence rate among HIV+
+  global$inc.hpos.sd[i] <- inc.h[2]
+  global$inc.hpos.lo[i] <- inc.h[3]
+  global$inc.hpos.hi[i] <- inc.h[4]
+  global$inc.hneg[i] <- inc.nh[1]    # TB incidence rate among HIV-
+  global$inc.hneg.sd[i] <- inc.nh[2]
+  global$inc.hneg.lo[i] <- inc.nh[3]
+  global$inc.hneg.hi[i] <- inc.nh[4]
+}
+
+
+
+
+
+
+#--------------------------------------------
+# Regional IRR
+#--------------------------------------------
+load('Rdata/regional.Rdata')
+load('Rdata/est.Rdata')
+phiv <- est[, list(hiv=sum(hiv*e.pop.num, na.rm=T)/sum(e.pop.num, na.rm=T), hiv.sd=sqrt(sum(hiv.sd^2, na.rm=T))), by=list(g.whoregion, year)]
+(phiv)
+regional <- merge(regional, phiv, by=c('g.whoregion', 'year'))
+set.seed(105)
+for (i in 1:dim(regional)[1]){
+  print(paste(round(i/dim(regional)[1] * 100, 1), '%',.sdp=''))
+  inc.h <- betaop(regional$inc.h[i]/m, regional$hiv[i], regional$inc.h.sd[i]/m, regional$hiv.sd[i]/m, op='/', nsim=m)
+  inc.nh <-betaop(regional$inc.nh[i]/m, (1 - regional$hiv[i]), regional$inc.h.sd[i]/m, regional$hiv.sd[i]/m, op='/', nsim=m)
+  
+  ratio <- betaop(inc.h[1], inc.nh[1], inc.h[2], inc.nh[2], op='/', nsim=m)
+  regional$irr[i] <- ratio[1]          # TB incidence rate ratio HIV+/HIV-
+  regional$irr.sd[i] <- ratio[2]
+  regional$irr.lo[i] <- ratio[3]
+  regional$irr.hi[i] <- ratio[4]
+  regional$inc.hpos[i] <- inc.h[1]     # TB incidence rate among HIV+
+  regional$inc.hpos.sd[i] <- inc.h[2]
+  regional$inc.hpos.lo[i] <- inc.h[3]
+  regional$inc.hpos.hi[i] <- inc.h[4]
+  regional$inc.hneg[i] <- inc.nh[1]    # TB incidence rate among HIV-
+  regional$inc.hneg.sd[i] <- inc.nh[2]
+  regional$inc.hneg.lo[i] <- inc.nh[3]
+  regional$inc.hneg.hi[i] <- inc.nh[4]
+}
+
+
+pdf(width=8, height=8, file='tbreport/figs/fig_chapter2_incidenceAmongHIV_byRegion.pdf')
+qplot(year, inc.hpos*100, data=regional, geom='line', colour=I('red')) + 
+  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
+  geom_ribbon(aes(year, ymin=inc.hpos.lo*100, ymax=inc.hpos.hi*100), fill=I('red'), alpha=I(.4)) +
+  facet_wrap(~g.whoregion)
+dev.off()
+
+
+pdf(width=8, height=8, file='tbreport/figs/fig_chapter2_IRR_byRegion.pdf')
+qplot(year, irr, data=regional, geom='line', colour=I('red')) + 
+  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
+  geom_ribbon(aes(year, ymin=irr.lo, ymax=irr.hi), fill=I('red'), alpha=I(.4)) +
+  facet_wrap(~g.whoregion)
+dev.off()
+
+# combining both at global level
+
+p1 <- qplot(year, inc.hpos*100, data=global, geom='line', colour=I('red')) + 
+  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
+  geom_ribbon(aes(year, ymin=inc.hpos.lo*100, ymax=inc.hpos.hi*100), fill=I('red'), alpha=I(.4)) 
+
+p2 <- qplot(year, irr, data=global, geom='line', colour=I('red')) + 
+  xlab('') + ylab('TB incidence Rate Ratio (HIV+/HIV-)') +
+  geom_ribbon(aes(year, ymin=irr.lo, ymax=irr.hi), fill=I('red'), alpha=I(.4)) 
+
+multiplot(p1, p2, cols=2)
+
+
+
+
 #--------------------------------------------
 # PAF - Amy Bloom question on resurgence
 #--------------------------------------------
@@ -71,118 +171,10 @@ length(unique(est$iso3[est$source.mort %in% c('Indirect')]))
 
 
 
-#--------------------------------------------
-# Global IRR
-#--------------------------------------------
-load('Rdata/global.Rdata')
-phiv <- est[, list(hiv=sum(hiv*e.pop.num, na.rm=T)/sum(e.pop.num, na.rm=T), hiv.se=sqrt(sum(hiv.se^2, na.rm=T))), by=year]
-(phiv)
-global <- merge(global, phiv, by='year')
-set.seed(123)
-for (i in 1:dim(global)[1]){
-  print(paste(round(i/dim(global)[1] * 100, 1), '%', sep=''))
-  inc.h <- betaop(global$inc.h[i]/m, global$hiv[i], global$inc.h.se[i]/m, global$hiv.se[i]/m, op='/', nsim=m)
-  inc.nh <-betaop(global$inc.nh[i]/m, (1 - global$hiv[i]), global$inc.h.se[i]/m, global$hiv.se[i]/m, op='/', nsim=m)
-  
-  ratio <- betaop(inc.h[1], inc.nh[1], inc.h[2], inc.nh[2], op='/', nsim=m)
-  global$irr[i] <- ratio[1]          # TB incidence rate ratio HIV+/HIV-
-  global$irr.se[i] <- ratio[2]
-  global$irr.lo[i] <- ratio[3]
-  global$irr.hi[i] <- ratio[4]
-  global$inc.hpos[i] <- inc.h[1]     # TB incidence rate among HIV+
-  global$inc.hpos.se[i] <- inc.h[2]
-  global$inc.hpos.lo[i] <- inc.h[3]
-  global$inc.hpos.hi[i] <- inc.h[4]
-  global$inc.hneg[i] <- inc.nh[1]    # TB incidence rate among HIV-
-  global$inc.hneg.se[i] <- inc.nh[2]
-  global$inc.hneg.lo[i] <- inc.nh[3]
-  global$inc.hneg.hi[i] <- inc.nh[4]
-}
 
 
 
-
-
-
-#--------------------------------------------
-# Regional IRR
-#--------------------------------------------
-load('Rdata/regional.Rdata')
-phiv <- est[, list(hiv=sum(hiv*e.pop.num, na.rm=T)/sum(e.pop.num, na.rm=T), hiv.se=sqrt(sum(hiv.se^2, na.rm=T))), by=list(g.whoregion, year)]
-(phiv)
-regional <- merge(regional, phiv, by=c('g.whoregion', 'year'))
-set.seed(105)
-for (i in 1:dim(regional)[1]){
-  print(paste(round(i/dim(regional)[1] * 100, 1), '%', sep=''))
-  inc.h <- betaop(regional$inc.h[i]/m, regional$hiv[i], regional$inc.h.se[i]/m, regional$hiv.se[i]/m, op='/', nsim=m)
-  inc.nh <-betaop(regional$inc.nh[i]/m, (1 - regional$hiv[i]), regional$inc.h.se[i]/m, regional$hiv.se[i]/m, op='/', nsim=m)
-  
-  ratio <- betaop(inc.h[1], inc.nh[1], inc.h[2], inc.nh[2], op='/', nsim=m)
-  regional$irr[i] <- ratio[1]          # TB incidence rate ratio HIV+/HIV-
-  regional$irr.se[i] <- ratio[2]
-  regional$irr.lo[i] <- ratio[3]
-  regional$irr.hi[i] <- ratio[4]
-  regional$inc.hpos[i] <- inc.h[1]     # TB incidence rate among HIV+
-  regional$inc.hpos.se[i] <- inc.h[2]
-  regional$inc.hpos.lo[i] <- inc.h[3]
-  regional$inc.hpos.hi[i] <- inc.h[4]
-  regional$inc.hneg[i] <- inc.nh[1]    # TB incidence rate among HIV-
-  regional$inc.hneg.se[i] <- inc.nh[2]
-  regional$inc.hneg.lo[i] <- inc.nh[3]
-  regional$inc.hneg.hi[i] <- inc.nh[4]
-}
-
-
-pdf(width=8, height=8, file='tbreport/figs/fig_chapter2_incidenceAmongHIV_byRegion.pdf')
-qplot(year, inc.hpos*100, data=regional, geom='line', colour=I('red')) + 
-  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
-  geom_ribbon(aes(year, ymin=inc.hpos.lo*100, ymax=inc.hpos.hi*100), fill=I('red'), alpha=I(.4)) +
-  facet_wrap(~g.whoregion)
-dev.off()
-
-
-pdf(width=8, height=8, file='tbreport/figs/fig_chapter2_IRR_byRegion.pdf')
-qplot(year, irr, data=regional, geom='line', colour=I('red')) + 
-  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
-  geom_ribbon(aes(year, ymin=irr.lo, ymax=irr.hi), fill=I('red'), alpha=I(.4)) +
-  facet_wrap(~g.whoregion)
-dev.off()
-
-# combining both at global level
-
-p1 <- qplot(year, inc.hpos*100, data=global, geom='line', colour=I('red')) + 
-  xlab('') + ylab('Incidence in HIV-positive (%/year)') +
-  geom_ribbon(aes(year, ymin=inc.hpos.lo*100, ymax=inc.hpos.hi*100), fill=I('red'), alpha=I(.4)) 
-
-p2 <- qplot(year, irr, data=global, geom='line', colour=I('red')) + 
-  xlab('') + ylab('TB incidence Rate Ratio (HIV+/HIV-)') +
-  geom_ribbon(aes(year, ymin=irr.lo, ymax=irr.hi), fill=I('red'), alpha=I(.4)) 
-
-multiplot(p1, p2, cols=2)
-
-
-
-
-
-
-
-#--------------------------------------------
-# quick example for Kathryn
-#--------------------------------------------
-prop <- c(0.01, 0.02, 0.05)
-ev <- mean(prop)
-std <- sd(prop)
-par <- get.beta(ev, std)
-(lo <- qbeta(0.025, par[1], par[2]))
-(hi <- qbeta(0.975, par[1], par[2]))
-(qt(c(0.025, 0.975), ev, std))
-
-
-
-
-
-
-### FROM last year's report_misc.R script
+### FROM previous year's report_misc.R
 
 #--------------------------------------------
 # TBHIV outcomes 2010
