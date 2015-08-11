@@ -11,7 +11,7 @@ source('fun.R')
 
 m <- 100000
 
-
+vlohi <- Vectorize(lohi, 'ev','se')
 
 
 
@@ -65,12 +65,22 @@ ep.sd <- 0.007
 cratio <- 0.13         # ratio of childhood prev rate / adult
 cratio.sd <- 0.024
 cpop <- 0.3            # proportion of pop < 15
+m <- 1e5 
 
-(pr.ep <- prodXY(pr, ep, pr.sd^2, ep.sd^2)) # prev EP
+# prevalence EP
+(pr.ep <- prodXY(pr, ep, pr.sd^2, ep.sd^2)) 
+(vlohi(pr.ep[[1]] / m, sqrt(pr.ep[[2]]) / m) * m)
 
 # assume all children are clinically diagnosed
 (prbac.all <- prbac * (1 - cpop))
-(prbac.all.sp <- prbac.sd * (1 - cpop))
+(prbac.all.sd <- pr.sd * prbac.all/pr)
+(vlohi(prbac.all/m, prbac.all.sd/m) * m)
+
+# prevalence clinically diagnosed
+(prclin <- pr - prbac.all)
+(prclin.sd <- pr.sd * prclin/pr)
+(vlohi(prclin / m, prclin.sd / m) * m)
+
 
 
 
