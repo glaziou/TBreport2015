@@ -5,7 +5,7 @@
 ##################################################
 library(foreign)
 library(data.table)
-
+setwd('../tbreport2015')
 rm(list=ls())
 source('fun.R')
 
@@ -51,6 +51,26 @@ for (i in 1:dim(global)[1]){
 }
 
 
+
+
+#--------------------------------------------
+# IDN prevalence broken down by disease type
+#--------------------------------------------
+prbac <- 759           # prev bac+ from the survey (adults)
+prbac.sd <- (961 - 590) / 4
+pr <- 660              # overall prevalence per 100,000 (2013)
+pr.sd <- 75.49
+ep <- 0.09             # all ages EP proportion
+ep.sd <- 0.007
+cratio <- 0.13         # ratio of childhood prev rate / adult
+cratio.sd <- 0.024
+cpop <- 0.3            # proportion of pop < 15
+
+(pr.ep <- prodXY(pr, ep, pr.sd^2, ep.sd^2)) # prev EP
+
+# assume all children are clinically diagnosed
+(prbac.all <- prbac * (1 - cpop))
+(prbac.all.sp <- prbac.sd * (1 - cpop))
 
 
 
