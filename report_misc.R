@@ -58,8 +58,10 @@ for (i in 1:dim(global)[1]){
 #--------------------------------------------
 prbac <- 759           # prev bac+ from the survey (adults)
 prbac.sd <- (961 - 590) / 4
-pr <- 660              # overall prevalence per 100,000 (2013)
-pr.sd <- 75.49
+# pr <- 660              # overall prevalence per 100,000 (2013)
+# pr.sd <- 75.49
+pr <- 646.9            # overall prevalence per 100,000 (2014)
+pr.sd <- 72.53
 ep <- 0.09             # all ages EP proportion
 ep.sd <- 0.007
 cratio <- 0.13         # ratio of childhood prev rate / adult
