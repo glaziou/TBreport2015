@@ -209,6 +209,62 @@ cty.lsaved <- function(iso='BGD', start=1995, csv=FALSE){
 # all countries - request from Mehran, Aug 2015
 load('Rdata/est.Rdata')
 yr <- 2014
+lst <- est[year==yr & inc.nh>0 & inc.h>0 & mort.nh>0, iso3] # current countries with valid data
+
+#---- temp code
+sel <- is.na(est$inc.h)
+table(sel)
+unique(est$iso3[sel])
+est$inc.h[sel] <- 1e-5
+est$inc.h.sd[sel] <- 1e-5
+
+sel <- is.na(est$inc.nh)
+table(sel)
+unique(est$iso3[sel])
+est$inc.nh[sel] <- 1e-5
+est$inc.nh.sd[sel] <- 1e-5
+
+sel <- is.na(est$mort.h)
+table(sel)
+sel <- est$mort.h==0 
+table(sel)
+est$mort.h[sel] <- 1e-6
+sel <- is.na(est$mort.nh)
+table(sel)
+sel <- est$mort.nh==0 
+table(sel)
+est$mort.nh[sel] <- 1e-6
+#---- end temp code
+
+# out <- lsaved(est[iso3 %in% lst % year>1999])
+
+# th <- 1e3
+# out <- within(out, {
+#                    saved.hivneg <- signif(savedn/th, 3) 
+#                    saved.hivneg.lo <- signif(savedn.lo/th, 3)
+#                    saved.hivneg.hi <- signif(savedn.hi/th, 3)
+#                    saved.hivpos <- signif(savedp/th, 3) 
+#                    saved.hivpos.lo <- signif(savedp.lo/th, 3) 
+#                    saved.hivpos.hi <- signif(savedp.hi/th, 3) 
+#                    saved <- signif(saved/th, 3) 
+#                    saved.lo <- signif(saved.lo/th, 3) 
+#                    saved.hi <- signif(saved.hi/th, 3)
+
+#   }
+
+# cty.clsaved <- ddply(out, .(iso3), function(x)clsaved(x))
+# cty.clsaved$year <- 'Cumulative'
+
+# out2 <- rbind(out, cty.clsaved, use.names=TRUE)
+# setkey(out2, iso3)
+
+# out3 <- out2[, .(iso3, year, saved.hivneg, saved.hivneg.lo, saved.hivneg.hi, 
+#                saved.hivpos, saved.hivpos.lo, saved.hivpos.hi, 
+#                saved, saved.lo, saved.hi)]
+
+# write.csv(out3, file='output/lsaved.csv', row.names=F)
+
+# load('Rdata/est.Rdata')
 
 cty.lsaved2 <- function(iso='BGD', start=2000){
   th <- 1000  
@@ -235,7 +291,7 @@ cty.lsaved2 <- function(iso='BGD', start=2000){
 }
 
 
-lst <- est[year==yr & inc.nh>0 & inc.h>0 & mort.nh>0, iso3] # current countries with valid data
+# lst <- est[year==yr & inc.nh>0 & inc.h>0 & mort.nh>0, iso3] # current countries with valid data
 est[iso3 %in% lst, table(year)]  
 
 tmp <- cty.lsaved2(iso=lst[1])
@@ -244,13 +300,6 @@ save(tmp, file=paste('misc/AFG.Rdata', sep=''))
 # fail the loop below
 fail <- c('MNE', 'SRB')
 
-#---- temp code
-sel <- is.na(est$inc.h)
-table(sel)
-unique(est$iso3[sel])
-est$inc.h[sel] <- 0
-est$inc.h.sd[sel] <- 0
-#---- end temp code
 
 for (i in setdiff(lst[-1], fail)){ # time to grap a coffee ... or two
   print(i)
