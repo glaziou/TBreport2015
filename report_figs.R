@@ -545,3 +545,67 @@ dta$var <- factor(dta$var,
 whomap(X=dta, Z=scale_fill_manual("Prevalence survey", values=c('grey','lightblue','blue','yellow4','brown','green4')), legendpos=c(0.14, 0.3))
 ggsave(file='fig/fig2_9_map_prevalence_surveys.pdf', width=10, height=8)
 
+
+
+
+# change in prevalence estimates ------------------------------------
+library(reshape2)
+post <- read.csv('input/prev_prepost.csv')
+load('Rdata/ws.Rdata') 
+vlohi <- Vectorize(lohi, c('ev', 'se'))
+post2 <- ws[!is.na(uprev), .(iso3, country=as.character(country), year, prev=uprev, prev.se=uprev.sd,
+                             old.prev=prev, old.prev.se=prev.sd)]
+post3 <- rbind(post, post2)
+m <- 1e5
+post <- within(post3, {
+  prev.hi <- vlohi(prev/m, prev.se/m)[2, ] * 1e3
+  prev.lo <- vlohi(prev/m, prev.se/m)[1, ] * 1e3
+  old.prev.hi <- vlohi(old.prev/m, old.prev.se/m)[2, ] * 1e3
+  old.prev.lo <- vlohi(old.prev/m, old.prev.se/m)[1, ] * 1e3
+})
+post <- within(post, {
+  prev <- prev/100
+  old.prev <- old.prev/100
+})
+(post)
+
+# difference
+post <- within(post, {
+               change <- prev - old.prev
+               change.se <- sqrt(prev.se^2 + old.prev.se^2)
+})
+post <- within(post, {
+               change.lo <- change - 1.96*change.se
+               change.hi <- change + 1.96*change.se
+})
+
+p1 <- qplot(change, country, data=post, geom='point', size=I(1.1), colour=I('red'), fill=I('red')) +
+#  geom_segment(aes(x=change.lo, xend=change.hi, y=country, yend=country), colour=I('red')) +
+  xlab('Difference survey - prior (per 1000)') + ylab('')
+print(p1)
+
+load('Rdata/cty.Rdata')
+post2 <- merge(post, cty[, .(iso3, g.whoregion)], by='iso3', all.x=T, all.y=F)
+post2$region <- 'Africa'
+post2$region[post2$g.whoregion %in% c('WPR','SEA')]  <- 'Asia'
+post2$region[post2$iso3 %in% c('Sudan')]  <- 'Africa'
+post2$region[post2$iso3 %in% c('PAK')]  <- 'Asia'
+post2$region <- factor(post2$region, levels=c('Asia', 'Africa'))
+
+pdf(width=10, height=6, file='plots/misc/prepost.pdf')
+p2 <- qplot(old.prev, reorder(country, change), data=post2[iso3 %ni% c('PHL', 'VNM')], geom='point', size=I(3), colour=I('lightblue'), 
+            fill=I('lightblue')) +
+  geom_segment(aes(x=old.prev.lo, xend=old.prev.hi, y=country, yend=country), colour=I('lightblue'),
+               size=I(3)) +
+  geom_point(aes(prev, country), colour=I('red'), size=I(1)) +
+  geom_segment(aes(x=prev.lo, xend=prev.hi, y=country, yend=country), 
+               colour=I('red'), size=I(1)) +
+  facet_wrap(~region, nrow=1, scales='free_y') +
+  scale_x_log10(breaks=c(.25, 0.5, 1, 2, 5, 10)) +
+  xlab('Prevalence per 1000 (log scale)') + ylab('') +
+  theme_bw(base_size=18)
+print(p2)
+dev.off()
+
+write.csv(post2, file='output/before_after.csv', row.names=F)
+
