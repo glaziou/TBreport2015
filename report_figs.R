@@ -11,7 +11,7 @@ library(ggthemes)
 
 
 #--------------------------------------------
-# Load datasets 
+# Load datasets -----------------------------
 #--------------------------------------------
 load ('Rdata/tb.Rdata')
 load('Rdata/est.Rdata')
@@ -41,9 +41,9 @@ vlohi <- Vectorize(lohi, c('ev','se'))
 
 
 
-#----------------------------------------------------
-# Global rates of incidence, prevalence and mortality
-#----------------------------------------------------
+#----------------------------------------------------------
+# Global rates of incidence, prevalence and mortality -----
+#----------------------------------------------------------
 # global plot
 pdf(width=8, height=4, file='fig/fig2_6_global.pdf')
 p1 <- qplot(year, inc, data=global, geom='line', colour=I('blue')) +
@@ -88,7 +88,7 @@ dev.off()
 
 
 #----------------------------------------------------
-# Global numbers (incidence and mortality)
+# Global numbers (incidence and mortality) ----------
 #----------------------------------------------------
 pdf(width=8, height=4, file='fig/fig2_2_global_num.pdf')
 mil <- 1e6
@@ -126,7 +126,7 @@ dev.off()
 
 
 #----------------------------------------------------
-# Regional notification rate plus inc
+# Regional notification rate plus inc ---------------
 #----------------------------------------------------
 # chapter 2
 pdf(width=8, height=8, file='fig/fig2_7_incidenceByRegion.pdf')
@@ -166,7 +166,7 @@ dev.off()
 
 
 #------------------------------------------------------
-# Prevalence and Mortality by WHO region
+# Prevalence and Mortality by WHO region --------------
 #------------------------------------------------------
 detach(package:dplyr)
 library(plyr); library(dplyr)
@@ -216,7 +216,7 @@ dev.off()
 
 
 #----------------------------------------------------
-# AFR trends in AIDS-TB mortality
+# AFR trends in AIDS-TB mortality -------------------
 #----------------------------------------------------
 pdf(width=8, height=8, file='fig/fig_afr_mortality.pdf')
 p <- qplot(year, mort.h, data=regional[g.whoregion=='AFR'], geom='line', colour=I('red')) +
@@ -238,7 +238,7 @@ dev.off()
 
 
 #----------------------------------------------------
-# Incidence in 22 HBCs
+# Incidence in 22 HBCs ------------------------------
 #----------------------------------------------------
 hest <- subset(est, g.hbc22=='high' & !is.na(g.hbc22))
 levels(hest$country)[match('Democratic Republic of the Congo', levels(hest$country))] <- 'DR Congo'
@@ -283,7 +283,7 @@ ggsave('fig/fig3_3_incidenceRates_22hbc.pdf', width=10, height=8)
 
 
 #----------------------------------------------------
-# Incidence in top 10 countries
+# Incidence in top 10 countries ---------------------
 #----------------------------------------------------
 (top1 <- head(est[year==yr][order(inc.num, decreasing=T), list(country, inc.num)], 10))
 levels(top1$country)[match('Democratic Republic of the Congo', levels(top1$country))] <- 'DR Congo'
@@ -308,7 +308,7 @@ dev.off()
 
 
 #------------------------------------------------------
-# Prevalence and Mortality in 22 HBCs
+# Prevalence and Mortality in 22 HBCs -----------------
 #------------------------------------------------------
 hbc.ff2 <- ddply(as.data.frame(hbc.ff), .(iso3), transform,
   target.prev=prev[1]/2, target.mort=mort.nh[1]/2)
