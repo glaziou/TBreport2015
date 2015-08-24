@@ -90,7 +90,9 @@ dev.off()
 #----------------------------------------------------
 # Global numbers (incidence and mortality) ----------
 #----------------------------------------------------
-pdf(width=8, height=4, file='fig/fig2_2_global_num.pdf', title = paste0("Figure 2.2 Estimated absolute numbers of TB cases and deaths (in millions per year), 1990–", max(global$year)))
+library(gridExtra)
+pdf(width=8, height=4, file='fig/fig2_2_global_num.pdf', 
+    title = paste0("Figure 2.2 Estimated absolute numbers of TB cases and deaths (in millions per year), 1990–", max(global$year)))
 mil <- 1e6
 p1 <- qplot(year, inc.num/mil, data=global, geom='line', colour=I('black')) +
   geom_ribbon(aes(year, ymin=inc.lo.num/mil, ymax=inc.hi.num/mil), fill=I('grey'), alpha=0.8) +
@@ -115,8 +117,9 @@ p2 <- qplot(year, mort.nh.num/mil, data=global, geom='line', colour=I('blue')) +
   theme(legend.position='none') +
   ggtitle("TB deaths")
 
-
-multiplot(p1, p2, cols=2)
+grid.arrange(p1, p2, ncol=2, nrow=1, 
+             main=paste0("Figure 2.2 Estimated absolute numbers of TB cases and deaths (in millions per year), 1990–", max(global$year)))
+# multiplot(p1, p2, cols=2)
 dev.off()
 
 
