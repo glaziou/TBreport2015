@@ -130,6 +130,28 @@ p <- qplot(as.numeric(year), savedn/M, data=saved.global[1:14, ], geom='line', c
   theme_bw(base_size=28)
 print(p)
 
+# plot of cumulative lives saved
+sg <- saved.global[1:15]
+sg$cumn <- cumsum(sg$savedn) * 1e-6
+sg$cump <- cumsum(sg$savedp) * 1e-6
+sg$cum <- cumsum(sg$saved) * 1e-6
+sg$cum.sd <- cumsum((sg$saved.sd * 1e-6)^2)
+sg$cum.lo <- sg$cum - 1.96 * sg$cum.sd
+sg$cum.hi <- sg$cum + 1.96 * sg$cum.sd
+sg$year <- as.numeric(sg$year)
+(sg)
+
+p <- qplot(year, cum, data=sg, geom='line') +
+    geom_ribbon(aes(year, ymin=cum.lo, ymax=cum.hi), fill=I('grey50'), alpha=I(0.4)) +
+    geom_line(aes(year, cump), colour=I('red')) +
+    geom_line(aes(year, cumn), colour=I('blue')) +
+    xlab('') + ylab('Cumulative lives saved (million, log scale)') +
+    scale_y_log10(breaks=c(0.5,1,2,5,10,20,40)) +
+    scale_x_continuous(breaks=seq(2000,2014,by=2))
+print(p)
+ggsave('fig/livesSaved.pdf')
+
+
 
 #-------------------------------------------------
 # by WHO region (2000-2013)
@@ -322,5 +344,8 @@ setkey(tmp, iso3)
 write.csv(tmp, file='output/lsaved.csv', row.names=FALSE)
 
 load('Rdata/est.Rdata')
+
+
+
 
 

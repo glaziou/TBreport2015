@@ -12,9 +12,6 @@ m <- 100000
 
 setwd('../tbreport2015')
 
-source('fun.R')
-
-
 
 #--------------------------------------------
 # Load datasets 
@@ -24,8 +21,9 @@ load('Rdata/est.Rdata')
 load('Rdata/global.Rdata')
 load('Rdata/regional.Rdata')
 load('Rdata/hbc.Rdata')
+load('Rdata/sty.Rdata')
 
-
+source('fun.R')
 
 
 

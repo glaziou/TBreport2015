@@ -8,11 +8,11 @@ library('data.table')
 
 # load datasets
 # load('Rdata/est.Rdata')
-# load('Rdata/cty.Rdata')
-# load('Rdata/tb.Rdata')
+load('Rdata/cty.Rdata')
+load('Rdata/tb.Rdata')
 #load('Rdata/sty.Rdata')
 #load('Rdata/unaids.Rdata')
-# load('Rdata/pop.Rdata')
+load('Rdata/pop.Rdata')
 
 
 
@@ -208,6 +208,27 @@ add.rv <- function (r, r.lo, r.hi, r.sd, weights = 1, method = "beta")
                            sw, e.pop.num = sw))
 }
 
+
+# ensemble
+ensbeta <- function(xi, xi.sd){
+    stopifnot(xi<1 & xi.sd<1)
+    stopifnot(xi>0 & xi.sd>0)
+    vget.beta <- Vectorize(get.beta, c('ev','sd'))
+    w <- vget.beta(xi, xi.sd) - 1
+    a <- sum(w[1, ])
+    b <- sum(w[2, ])
+    pw <- list(c = a+1, d = b+1)
+    k <- pw$c + pw$d
+    post.ev <- pw$c / k
+    post.lo <- qbeta(0.025, pw$c, pw$d)
+    post.hi <- qbeta(0.975, pw$c, pw$d)
+    post.sd <- sqrt(pw$c * pw$d /(k^2 * (k + 1)))
+    return(list(post.param = c(shape=pw$c, scale=pw$d),
+                post.ev = post.ev,
+                post.lo = post.lo,
+                post.hi = post.hi,
+                post.sd = post.sd))
+}
 
 
 

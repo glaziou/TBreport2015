@@ -550,6 +550,7 @@ ggsave(file='fig/fig2_9_map_prevalence_surveys.pdf', width=10, height=8)
 
 # change in prevalence estimates ------------------------------------
 library(reshape2)
+setwd('../tbreport2015')
 post <- read.csv('input/prev_prepost.csv')
 load('Rdata/ws.Rdata') 
 vlohi <- Vectorize(lohi, c('ev', 'se'))
@@ -592,7 +593,7 @@ post2$region[post2$iso3 %in% c('Sudan')]  <- 'Africa'
 post2$region[post2$iso3 %in% c('PAK')]  <- 'Asia'
 post2$region <- factor(post2$region, levels=c('Asia', 'Africa'))
 
-pdf(width=10, height=6, file='plots/misc/prepost.pdf')
+pdf(width=10, height=6, file='fig/prepostsurvey.pdf')
 p2 <- qplot(old.prev, reorder(country, change), data=post2[iso3 %ni% c('PHL', 'VNM')], geom='point', size=I(3), colour=I('lightblue'), 
             fill=I('lightblue')) +
   geom_segment(aes(x=old.prev.lo, xend=old.prev.hi, y=country, yend=country), colour=I('lightblue'),
