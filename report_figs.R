@@ -90,28 +90,30 @@ dev.off()
 #----------------------------------------------------
 # Global numbers (incidence and mortality) ----------
 #----------------------------------------------------
-pdf(width=8, height=4, file='fig/fig2_2_global_num.pdf')
+pdf(width=8, height=4, file='fig/fig2_2_global_num.pdf', title = paste0("Figure 2.2 Estimated absolute numbers of TB cases and deaths (in millions per year), 1990–", max(global$year)))
 mil <- 1e6
 p1 <- qplot(year, inc.num/mil, data=global, geom='line', colour=I('black')) +
   geom_ribbon(aes(year, ymin=inc.lo.num/mil, ymax=inc.hi.num/mil), fill=I('grey'), alpha=0.8) +
   geom_line(aes(year, inc.h.num/mil), colour=I('red')) +
-  geom_line(aes(year, c.newinc/mil)) + 
+  # geom_line(aes(year, c.newinc/mil)) + 
   geom_ribbon(aes(year, ymin=inc.h.lo.num/mil, ymax=inc.h.hi.num/mil), 
               fill=I('red'), alpha=0.4) +
-                ylab('Cases/year (millions)') + xlab('') +
+                ylab('Millions') + xlab('') +
                 expand_limits(y=0) +
-                theme_bw(base_size=11) 
+                theme_bw(base_size=11) +
+  ggtitle("TB incidence")
 
 p2 <- qplot(year, mort.nh.num/mil, data=global, geom='line', colour=I('blue')) +
   geom_ribbon(aes(year, ymin=mort.nh.lo.num/mil, ymax=mort.nh.hi.num/mil), fill=I('blue'), alpha=0.3) +
   geom_line(aes(year,mort.h.num/mil), colour=I('red')) +
   geom_ribbon(aes(year, ymin=mort.h.lo.num/mil, ymax=mort.h.hi.num/mil), fill=I('red'), alpha=0.3) +
-  geom_line(aes(year, mort.num/mil), colour=I('black')) +
-  geom_ribbon(aes(year, ymin=mort.lo.num/mil, ymax=mort.hi.num/mil), fill=I('grey'), alpha=0.8) +
-  ylab('TB deaths/year (millions)') + xlab('') +
+  # geom_line(aes(year, mort.num/mil), colour=I('black')) +
+  # geom_ribbon(aes(year, ymin=mort.lo.num/mil, ymax=mort.hi.num/mil), fill=I('grey'), alpha=0.8) +
+  ylab('Millions') + xlab('') +
   expand_limits(y=0) +
   theme_bw(base_size=11) +
-  theme(legend.position='none')
+  theme(legend.position='none') +
+  ggtitle("TB deaths")
 
 
 multiplot(p1, p2, cols=2)
