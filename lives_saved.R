@@ -152,6 +152,26 @@ print(p)
 ggsave('fig/livesSaved.pdf')
 
 
+# HIV+
+global.lsaved <- lsaved(global[year>2004])
+global.lsaved <- global.lsaved[, list(year=as.character(year), savedn, savedn.lo, savedn.hi, savedn.sd,
+                                      savedp, savedp.lo, savedp.hi, savedp.sd,
+                                      saved, saved.lo, saved.hi, saved.sd)]
+global.clsaved <- clsaved(global.lsaved)
+global.clsaved$year <- 'Cumulative'
+
+hsaved.global <- rbind(global.lsaved, global.clsaved, use.names=TRUE)
+
+hsaved.global.print <- hsaved.global[, list(year, 
+                                          saved.hivpos=signif(savedp/M, 2), 
+                                          saved.hivpos.ui=paste("(", as.character(signif(savedp.lo/M, 3)),"-", 
+                                                         as.character(signif(savedp.hi/M, 2)), ")", sep='')
+                                          )]
+(hsaved.global.print)
+
+write.csv(hsaved.global.print, file='output/HIVposGlobalSaved.csv', row.names=FALSE)
+
+
 
 #-------------------------------------------------
 # by WHO region (2000-2013)
