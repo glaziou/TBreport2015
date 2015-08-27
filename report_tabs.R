@@ -361,8 +361,26 @@ write.csv(tab, 'tab/annex1_data_sources.csv', row.names=FALSE)
 
 
 #--------------------------------------------
-# Table Annex 1 - VR countries
+# Chapter 2, misc 
 #--------------------------------------------
+vrcty <- unique(est$iso3[est$source.mort != 'indirect' & !is.na(est$source.mort)])
+cty2014 <- est$iso3[est$year==2014]
+(setdiff(vrcty, cty2014))
+vrc <- intersect(vrcty, cty2014)
+length(vrc)
+est$vrc <- est$iso3 %in% vrc
+(est[year==2014, .(deaths=sum(mort.nh.num, na.rm=T)), by=vrc][, prop := deaths/sum(deaths)])
+
+# rates of decline
+load('Rdata/global.Rdata')
+(global[year>1999, .(coef(lm(log(inc) ~ year))[2])])
+(global[year>2012, .(coef(lm(log(inc) ~ year))[2])])
+
+
+
+
+
+# outdated code
 tabvr <- est[, list(vr.points=sum(source.mort=='VR'), tot.points=sum(!is.na(year))), by=iso3]
 
 load('Rdata/vr.Rdata')
