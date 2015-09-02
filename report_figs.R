@@ -452,7 +452,7 @@ cod <- data.table(cause=c('Ischaemic heart disease','Stroke','COPD','Lower respi
                           'Tracheal, bronchus, lung infections','HIV/AIDS','TB','Diarrheal diseases',
                           'Diabetes mellitus','Road injury'),
                   ncd=c(T,T,T,F,F,F,F,F,T,T),
-                  n=c(7.4, 6.7, 3.1, 3.1, 1.6,0.98, 1.18, 1.5, 1.5, 1.3),
+                  n=c(7.4, 6.7, 3.1, 3.1, 1.6, 0.98, 1.18, 1.5, 1.5, 1.3),
                   tbhiv=c(rep(0, 5), rep(0.422545, 2), rep(F,3)))
 cod[, total := n + tbhiv]
 
@@ -497,6 +497,26 @@ print(p2)
 print(inset, vp = vp)
 dev.off()
 
+# 2012 top 10 infectious
+codb <- data.table(cause=c('Respiratory infections','Diarrhoeal diseases','Malaria','Meningitis, encephalitis',
+                          'Vaccine preventable','HIV/AIDS','TB','Hepatitis B and C',
+                          'Neglected tropical diseases','STIs, excluding HIV'),
+                  n=c(3.61, 1.5, 0.62, 0.47, 0.27, 0.98, 1.18, 0.188, 0.171, 0.084),
+                  tbhiv=c(rep(0, 5), rep(0.422545, 2), rep(F,3)))
+codb[, total := n + tbhiv]
+
+pb <- qplot(reorder(cause, total), total, data=codb, geom='bar', stat='identity', 
+           fill=I('grey50'), colour=I('black'),
+           main='Top 10 infectious causes of deaths, TB/HIV deaths in grey.\n') +
+    geom_bar(aes(cause, n), stat='identity', fill=I('white'), colour=I('black')) +
+    xlab('') + ylab('Millions (2012)') +
+    scale_y_continuous(breaks=0:7) +
+    coord_flip()
+
+pdf(file='fig/top10infectiousC0D.pdf', width=8, height=6)
+print(pb)
+print(inset, vp = vp)
+dev.off()
 
 
 
