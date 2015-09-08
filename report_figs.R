@@ -694,10 +694,10 @@ post <- within(post, {
                change.hi <- change + 1.96*change.se
 })
 
-p1 <- qplot(change, country, data=post, geom='point', size=I(1.1), colour=I('red'), fill=I('red')) +
+# p1 <- qplot(change, country, data=post, geom='point', size=I(1.1), colour=I('red'), fill=I('red')) +
 #  geom_segment(aes(x=change.lo, xend=change.hi, y=country, yend=country), colour=I('red')) +
-  xlab('Difference survey - prior (per 1000)') + ylab('')
-print(p1)
+#  xlab('Difference survey - prior (per 1000)') + ylab('')
+# print(p1)
 
 load('Rdata/cty.Rdata')
 post2 <- merge(post, cty[, .(iso3, g.whoregion)], by='iso3', all.x=T, all.y=F)
@@ -707,7 +707,6 @@ post2$region[post2$iso3 %in% c('Sudan')]  <- 'Africa'
 post2$region[post2$iso3 %in% c('PAK')]  <- 'Asia'
 post2$region <- factor(post2$region, levels=c('Asia', 'Africa'))
 
-pdf(width=10, height=6, file='fig/prepostsurvey.pdf')
 p2 <- qplot(old.prev, reorder(country, change), data=post2[iso3 %ni% c('PHL', 'VNM')], geom='point', size=I(3), colour=I('lightblue'), 
             fill=I('lightblue')) +
   geom_segment(aes(x=old.prev.lo, xend=old.prev.hi, y=country, yend=country), colour=I('lightblue'),
@@ -717,9 +716,23 @@ p2 <- qplot(old.prev, reorder(country, change), data=post2[iso3 %ni% c('PHL', 'V
                colour=I('red'), size=I(1)) +
   facet_wrap(~region, nrow=1, scales='free_y') +
   scale_x_log10(breaks=c(.25, 0.5, 1, 2, 5, 10)) +
-  xlab('Prevalence per 1000 (log scale)') + ylab('') +
+  xlab('Prevalence per 1000 population (log scale)') + ylab('') +
   theme_bw(base_size=18)
-print(p2)
+
+title.grob <- textGrob(
+    label = '\nFigure B2.2.1. Estimates of TB prevalence (all ages, all forms of TB) for 12 countries,
+    before and after results from national TB prevalence surveys became available.\n
+    Panels are ordered by the size of the before-after difference. Crosses mark 
+    the best estimate and the horizontal lines mark 95% uncertainty intervals.\n',
+    x = unit(0, "lines"), 
+    y = unit(0, "lines"),
+    hjust = 0, vjust = 0,
+    gp = gpar(fontsize = 16))
+
+p2b <- arrangeGrob(p2, main = title.grob)
+
+pdf(width=10, height=6, file='fig/prepostsurvey.pdf')
+print(p2b)
 dev.off()
 
 write.csv(post2, file='output/before_after.csv', row.names=F)
