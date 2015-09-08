@@ -526,8 +526,9 @@ dev.off()
 #----------------------------------------------------
 library(whomap)
 yr <- 2014
-dta <- est[year==2012, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
+dta <- est[year==2014, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
+
 # VR countries 
 dta$var <- dta$source.mort %in% c("VR","VR imputed","imputed")
 whomap(X=dta, Z=scale_fill_manual("VR/Survey", values=c('grey','darkgreen')), legendpos='none')
@@ -545,11 +546,18 @@ write.csv(dta, file='tab/vrCountries.csv', row.names=FALSE)
 # source Incidence (2014)
 dta <- est[year==yr, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
-dta$var <- dta$source.inc %in% c("Capture-recapture","High income","Survey")
-whomap(X=dta, Z=scale_fill_manual("Surveillance", values=c('grey','darkgreen')), legendpos='none')
+#dta$var <- dta$source.inc %in% c("Capture-recapture","High income","Survey")
+dta$var <- dta$source.inc
+dta$var[dta$iso3 %in% c('CHN', 'GMB', 'IDN', 'MMR', 'PAK', 'PHL', 'RWA', 'VNM')] <- 'Survey'
+dta$var[dta$var=='Survey'] <- 'Prevalence survey'
+dta$var[dta$var %ni% c('Survey', 'Capture-recapture', 'High income')] <- 'Expert opinion'
+table(dta$var)
+
+whomap(X=dta) + scale_fill_brewer('Main data source', palette='Set1') 
+#whomap(X=dta, scale_fill_manual('Main source', values=c('brown','lightblue', 'blue', 'darkgreen')))
 
 ggsave(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
-write.csv(dta[, list(iso3, consult=var)], file='tab/inc_method.csv', row.names=F)
+write.csv(dta[, list(iso3, source.inc=var)], file='tab/inc_method.csv', row.names=F)
 
 
 

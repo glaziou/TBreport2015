@@ -1,218 +1,218 @@
-"iso3","consult"
-"ABW",TRUE
-"AFG",FALSE
-"AGO",FALSE
-"AIA",FALSE
-"ALB",FALSE
-"AND",TRUE
-"ARE",FALSE
-"ARG",TRUE
-"ARM",FALSE
-"ASM",FALSE
-"ATG",TRUE
-"AUS",TRUE
-"AUT",TRUE
-"AZE",FALSE
-"BDI",FALSE
-"BEL",TRUE
-"BEN",FALSE
-"BES",TRUE
-"BFA",FALSE
-"BGD",FALSE
-"BGR",FALSE
-"BHR",TRUE
-"BHS",TRUE
-"BIH",FALSE
-"BLR",FALSE
-"BLZ",FALSE
-"BMU",TRUE
-"BOL",FALSE
-"BRA",FALSE
-"BRB",TRUE
-"BRN",TRUE
-"BTN",FALSE
-"BWA",FALSE
-"CAF",FALSE
-"CAN",TRUE
-"CHE",TRUE
-"CHL",TRUE
-"CHN",FALSE
-"CIV",FALSE
-"CMR",FALSE
-"COD",FALSE
-"COG",FALSE
-"COK",FALSE
-"COL",FALSE
-"COM",FALSE
-"CPV",FALSE
-"CRI",FALSE
-"CUB",FALSE
-"CUW",TRUE
-"CYM",TRUE
-"CYP",TRUE
-"CZE",TRUE
-"DEU",TRUE
-"DJI",FALSE
-"DMA",FALSE
-"DNK",TRUE
-"DOM",FALSE
-"DZA",FALSE
-"ECU",FALSE
-"EGY",FALSE
-"ERI",FALSE
-"ESP",TRUE
-"EST",TRUE
-"ETH",TRUE
-"FIN",TRUE
-"FJI",FALSE
-"FRA",TRUE
-"FSM",FALSE
-"GAB",FALSE
-"GBR",TRUE
-"GEO",FALSE
-"GHA",TRUE
-"GIN",FALSE
-"GMB",FALSE
-"GNB",FALSE
-"GNQ",FALSE
-"GRC",TRUE
-"GRD",FALSE
-"GRL",TRUE
-"GTM",FALSE
-"GUM",TRUE
-"GUY",FALSE
-"HKG",TRUE
-"HND",FALSE
-"HRV",TRUE
-"HTI",FALSE
-"HUN",TRUE
-"IDN",FALSE
-"IND",FALSE
-"IRL",TRUE
-"IRN",FALSE
-"IRQ",TRUE
-"ISL",TRUE
-"ISR",TRUE
-"ITA",TRUE
-"JAM",FALSE
-"JOR",FALSE
-"JPN",TRUE
-"KAZ",FALSE
-"KEN",FALSE
-"KGZ",FALSE
-"KHM",TRUE
-"KIR",FALSE
-"KNA",TRUE
-"KOR",TRUE
-"KWT",TRUE
-"LAO",TRUE
-"LBN",FALSE
-"LBR",FALSE
-"LBY",FALSE
-"LCA",FALSE
-"LKA",FALSE
-"LSO",FALSE
-"LTU",FALSE
-"LUX",TRUE
-"LVA",FALSE
-"MAC",TRUE
-"MAR",FALSE
-"MCO",TRUE
-"MDA",FALSE
-"MDG",FALSE
-"MDV",FALSE
-"MEX",FALSE
-"MHL",FALSE
-"MKD",FALSE
-"MLI",FALSE
-"MLT",TRUE
-"MMR",FALSE
-"MNE",FALSE
-"MNG",FALSE
-"MNP",TRUE
-"MOZ",FALSE
-"MRT",FALSE
-"MSR",TRUE
-"MUS",FALSE
-"MWI",TRUE
-"MYS",FALSE
-"NAM",FALSE
-"NCL",TRUE
-"NER",FALSE
-"NGA",TRUE
-"NIC",FALSE
-"NIU",FALSE
-"NLD",TRUE
-"NOR",TRUE
-"NPL",FALSE
-"NRU",FALSE
-"NZL",TRUE
-"OMN",TRUE
-"PAK",FALSE
-"PAN",FALSE
-"PER",FALSE
-"PHL",FALSE
-"PLW",FALSE
-"PNG",FALSE
-"POL",TRUE
-"PRI",TRUE
-"PRK",FALSE
-"PRT",TRUE
-"PRY",FALSE
-"PSE",FALSE
-"PYF",TRUE
-"QAT",TRUE
-"ROU",FALSE
-"RUS",FALSE
-"RWA",FALSE
-"SAU",TRUE
-"SDN",TRUE
-"SEN",FALSE
-"SGP",TRUE
-"SLB",FALSE
-"SLE",FALSE
-"SLV",FALSE
-"SMR",TRUE
-"SOM",FALSE
-"SRB",FALSE
-"SSD",FALSE
-"STP",FALSE
-"SUR",FALSE
-"SVK",TRUE
-"SVN",TRUE
-"SWE",TRUE
-"SWZ",FALSE
-"SXM",TRUE
-"SYC",TRUE
-"SYR",FALSE
-"TCA",TRUE
-"TCD",FALSE
-"TGO",FALSE
-"THA",TRUE
-"TJK",FALSE
-"TKL",FALSE
-"TKM",FALSE
-"TLS",FALSE
-"TON",FALSE
-"TTO",TRUE
-"TUN",FALSE
-"TUR",TRUE
-"TUV",FALSE
-"TZA",TRUE
-"UGA",FALSE
-"UKR",FALSE
-"URY",TRUE
-"USA",TRUE
-"UZB",FALSE
-"VCT",FALSE
-"VEN",TRUE
-"VGB",TRUE
-"VIR",TRUE
-"VNM",FALSE
-"VUT",FALSE
-"WLF",TRUE
-"WSM",FALSE
-"YEM",TRUE
-"ZAF",FALSE
-"ZMB",TRUE
-"ZWE",TRUE
+"iso3","source.inc"
+"ABW","High income"
+"AFG","Expert opinion"
+"AGO","Expert opinion"
+"AIA","Expert opinion"
+"ALB","Expert opinion"
+"AND","High income"
+"ARE","Expert opinion"
+"ARG","High income"
+"ARM","Expert opinion"
+"ASM","Expert opinion"
+"ATG","High income"
+"AUS","High income"
+"AUT","High income"
+"AZE","Expert opinion"
+"BDI","Expert opinion"
+"BEL","High income"
+"BEN","Expert opinion"
+"BES","High income"
+"BFA","Expert opinion"
+"BGD","Expert opinion"
+"BGR","Expert opinion"
+"BHR","High income"
+"BHS","High income"
+"BIH","Expert opinion"
+"BLR","Expert opinion"
+"BLZ","Expert opinion"
+"BMU","High income"
+"BOL","Expert opinion"
+"BRA","Expert opinion"
+"BRB","High income"
+"BRN","High income"
+"BTN","Expert opinion"
+"BWA","Expert opinion"
+"CAF","Expert opinion"
+"CAN","High income"
+"CHE","High income"
+"CHL","High income"
+"CHN","Prevalence survey"
+"CIV","Expert opinion"
+"CMR","Expert opinion"
+"COD","Expert opinion"
+"COG","Expert opinion"
+"COK","Expert opinion"
+"COL","Expert opinion"
+"COM","Expert opinion"
+"CPV","Expert opinion"
+"CRI","Expert opinion"
+"CUB","Expert opinion"
+"CUW","High income"
+"CYM","High income"
+"CYP","High income"
+"CZE","High income"
+"DEU","High income"
+"DJI","Expert opinion"
+"DMA","Expert opinion"
+"DNK","High income"
+"DOM","Expert opinion"
+"DZA","Expert opinion"
+"ECU","Expert opinion"
+"EGY","Expert opinion"
+"ERI","Expert opinion"
+"ESP","High income"
+"EST","High income"
+"ETH","Prevalence survey"
+"FIN","High income"
+"FJI","Expert opinion"
+"FRA","Prevalence survey"
+"FSM","Expert opinion"
+"GAB","Expert opinion"
+"GBR","Capture-recapture"
+"GEO","Expert opinion"
+"GHA","Prevalence survey"
+"GIN","Expert opinion"
+"GMB","Prevalence survey"
+"GNB","Expert opinion"
+"GNQ","Expert opinion"
+"GRC","High income"
+"GRD","Expert opinion"
+"GRL","High income"
+"GTM","Expert opinion"
+"GUM","High income"
+"GUY","Expert opinion"
+"HKG","High income"
+"HND","Expert opinion"
+"HRV","High income"
+"HTI","Expert opinion"
+"HUN","High income"
+"IDN","Prevalence survey"
+"IND","Expert opinion"
+"IRL","High income"
+"IRN","Expert opinion"
+"IRQ","Capture-recapture"
+"ISL","High income"
+"ISR","High income"
+"ITA","High income"
+"JAM","Expert opinion"
+"JOR","Expert opinion"
+"JPN","High income"
+"KAZ","Expert opinion"
+"KEN","Expert opinion"
+"KGZ","Expert opinion"
+"KHM","Prevalence survey"
+"KIR","Expert opinion"
+"KNA","High income"
+"KOR","High income"
+"KWT","High income"
+"LAO","Prevalence survey"
+"LBN","Expert opinion"
+"LBR","Expert opinion"
+"LBY","Expert opinion"
+"LCA","Expert opinion"
+"LKA","Expert opinion"
+"LSO","Expert opinion"
+"LTU","Expert opinion"
+"LUX","High income"
+"LVA","Expert opinion"
+"MAC","High income"
+"MAR","Expert opinion"
+"MCO","High income"
+"MDA","Expert opinion"
+"MDG","Expert opinion"
+"MDV","Expert opinion"
+"MEX","Expert opinion"
+"MHL","Expert opinion"
+"MKD","Expert opinion"
+"MLI","Expert opinion"
+"MLT","High income"
+"MMR","Prevalence survey"
+"MNE","Expert opinion"
+"MNG","Expert opinion"
+"MNP","High income"
+"MOZ","Expert opinion"
+"MRT","Expert opinion"
+"MSR","High income"
+"MUS","Expert opinion"
+"MWI","Prevalence survey"
+"MYS","Expert opinion"
+"NAM","Expert opinion"
+"NCL","High income"
+"NER","Expert opinion"
+"NGA","Prevalence survey"
+"NIC","Expert opinion"
+"NIU","Expert opinion"
+"NLD","High income"
+"NOR","High income"
+"NPL","Expert opinion"
+"NRU","Expert opinion"
+"NZL","High income"
+"OMN","High income"
+"PAK","Prevalence survey"
+"PAN","Expert opinion"
+"PER","Expert opinion"
+"PHL","Prevalence survey"
+"PLW","Expert opinion"
+"PNG","Expert opinion"
+"POL","High income"
+"PRI","High income"
+"PRK","Expert opinion"
+"PRT","High income"
+"PRY","Expert opinion"
+"PSE","Expert opinion"
+"PYF","High income"
+"QAT","High income"
+"ROU","Expert opinion"
+"RUS","Expert opinion"
+"RWA","Prevalence survey"
+"SAU","High income"
+"SDN","Prevalence survey"
+"SEN","Expert opinion"
+"SGP","High income"
+"SLB","Expert opinion"
+"SLE","Expert opinion"
+"SLV","Expert opinion"
+"SMR","High income"
+"SOM","Expert opinion"
+"SRB","Expert opinion"
+"SSD","Expert opinion"
+"STP","Expert opinion"
+"SUR","Expert opinion"
+"SVK","High income"
+"SVN","High income"
+"SWE","High income"
+"SWZ","Expert opinion"
+"SXM","High income"
+"SYC","High income"
+"SYR","Expert opinion"
+"TCA","High income"
+"TCD","Expert opinion"
+"TGO","Expert opinion"
+"THA","Prevalence survey"
+"TJK","Expert opinion"
+"TKL","Expert opinion"
+"TKM","Expert opinion"
+"TLS","Expert opinion"
+"TON","Expert opinion"
+"TTO","High income"
+"TUN","Expert opinion"
+"TUR","High income"
+"TUV","Expert opinion"
+"TZA","Prevalence survey"
+"UGA","Expert opinion"
+"UKR","Expert opinion"
+"URY","High income"
+"USA","High income"
+"UZB","Expert opinion"
+"VCT","Expert opinion"
+"VEN","High income"
+"VGB","High income"
+"VIR","High income"
+"VNM","Prevalence survey"
+"VUT","Expert opinion"
+"WLF","High income"
+"WSM","Expert opinion"
+"YEM","Capture-recapture"
+"ZAF","Expert opinion"
+"ZMB","Prevalence survey"
+"ZWE","Prevalence survey"
