@@ -554,7 +554,7 @@ dta$var <- factor(dta$var, levels=c('Case notifications','Prevalence survey',
 p <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') 
 
 title.grob <- textGrob(
-    label = 'Figure 2.2. Main method used to estimate TB incidence\n
+    label = '\nFigure 2.2. Main method used to estimate TB incidence\n
               In the first method, case notification data are combined with expert opinion about 
               case detection gaps (under-reporting and under-diagnosis), and trends are estimated 
               using either mortality data, surveys of the annual risk of infection or exponential 
