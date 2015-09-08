@@ -550,17 +550,29 @@ dta$var[dta$iso3 %in% c('EGY', 'NLD')]  <- 'Capture-recapture'
 dta$var <- factor(dta$var, levels=c('Case notifications','Prevalence survey',
                                     'High income','Capture-recapture'),
                   labels=c('Case notifications, ')
-p1 <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') +
-         labs(title='Figure 2.2. Main method used to estimate TB incidence\n
+
+p <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') 
+
+title.grob <- textGrob(
+    label = 'Figure 2.2. Main method used to estimate TB incidence\n
               In the first method, case notification data are combined with expert opinion about 
               case detection gaps (under-reporting and under-diagnosis), and trends are estimated 
               using either mortality data, surveys of the annual risk of infection or exponential 
               interpolation using estimates of case detection gaps for three years. For all 
               high-income countries except the Netherlands and the United Kingdom, notifications 
               are adjusted by a standard amount to account for case detection gaps. 
-              For further details about all four methods, see text.')
+              For further details about all four methods, see text.',
+    x = unit(0, "lines"), 
+    y = unit(0, "lines"),
+    hjust = 0, vjust = 0,
+    gp = gpar(fontsize = 16))
+
+p1 <- arrangeGrob(p, main = title.grob)
+
+pdf(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
 (p1)
-ggsave(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
+dev.off()
+
 write.csv(dta[, list(iso3, source.inc=var)], file='tab/inc_method.csv', row.names=F)
 
 table(dta$var)
