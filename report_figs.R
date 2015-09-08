@@ -536,27 +536,27 @@ whomap(X=dta, Z=scale_fill_manual("VR/Survey", values=c('grey','darkgreen')), le
 ggsave(file='fig/fig2_11_map_VRcountries.pdf', width=10, height=8)
 write.csv(dta, file='tab/vrCountries.csv', row.names=FALSE)
 
-# Source TBHIV (2012)
-# dta$var <- dta$source.tbhiv
-# whomap(X=dta, Z=scale_fill_brewer("TBHIV", palette="Set1"))
-# 
-# ggsave(file='fig/map_sourceTBHIV.pdf')
-
 
 # source Incidence (2014)
 dta <- est[year==yr, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
 #dta$var <- dta$source.inc %in% c("Capture-recapture","High income","Survey")
 dta$var <- dta$source.inc
-dta$var[dta$iso3 %in% c('CHN', 'GMB', 'IDN', 'MMR', 'PAK', 'PHL', 'RWA', 'VNM')] <- 'Survey'
+dta$var[dta$iso3 %in% c('CHN', 'GMB', 'IDN', 'MMR', 'PAK', 'PHL', 'RWA', 'VNM')] <- 'Prevalence survey'
 dta$var[dta$var=='Survey'] <- 'Prevalence survey'
-dta$var[dta$var %ni% c('Survey', 'Capture-recapture', 'High income')] <- 'Expert opinion'
+dta$var[dta$var %ni% c('Prevalence survey', 'Capture-recapture', 'High income')] <- 'Case notifications'
 dta$var[dta$iso3 %in% c('FRA', 'RUS')]  <- 'High income'
+dta$var[dta$iso3 %in% c('EGY', 'NLD')]  <- 'Capture-recapture'
 table(dta$var)
-
-whomap(X=dta) + scale_fill_brewer('Main data source', palette='Set1') 
-#whomap(X=dta, scale_fill_manual('Main source', values=c('brown','lightblue', 'blue', 'darkgreen')))
-
+dta$var <- factor(dta$var, levels=c('Case notifications','Prevalence survey',
+                                    'High income','Capture-recapture'))
+p1 <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') +
+         labs(title='Figure 2.2. Main method used to estimate TB incidence\n
+            Footnote: 1. Case notification data combined with expert opinion; 
+            2. Results from national TB Prevalence surveys;
+            3. Adjusted case notification data in high-income countries;
+            4. Results from inventory studies and capture-recapture modelling')
+(p1)
 ggsave(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
 write.csv(dta[, list(iso3, source.inc=var)], file='tab/inc_method.csv', row.names=F)
 
