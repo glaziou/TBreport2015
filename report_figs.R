@@ -731,7 +731,7 @@ title.grob <- textGrob(
 
 p2b <- arrangeGrob(p2, main = title.grob)
 
-pdf(width=10, height=6, file='fig/prepostsurvey.pdf')
+pdf(width=10, height=8, file='fig/prepostsurvey.pdf')
 print(p2b)
 dev.off()
 
