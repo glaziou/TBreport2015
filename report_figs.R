@@ -551,6 +551,7 @@ dta$var <- dta$source.inc
 dta$var[dta$iso3 %in% c('CHN', 'GMB', 'IDN', 'MMR', 'PAK', 'PHL', 'RWA', 'VNM')] <- 'Survey'
 dta$var[dta$var=='Survey'] <- 'Prevalence survey'
 dta$var[dta$var %ni% c('Survey', 'Capture-recapture', 'High income')] <- 'Expert opinion'
+dta$var[dta$iso3 %in% c('FRA', 'RUS')]  <- 'High income'
 table(dta$var)
 
 whomap(X=dta) + scale_fill_brewer('Main data source', palette='Set1') 
@@ -558,6 +559,9 @@ whomap(X=dta) + scale_fill_brewer('Main data source', palette='Set1')
 
 ggsave(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
 write.csv(dta[, list(iso3, source.inc=var)], file='tab/inc_method.csv', row.names=F)
+
+print(dta[, .(sum(inc.num)), by=var][, prop:=V1/sum(V1)])
+
 
 
 
