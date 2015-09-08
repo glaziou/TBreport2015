@@ -549,7 +549,8 @@ dta$var[dta$iso3 %in% c('FRA', 'RUS')]  <- 'High income'
 dta$var[dta$iso3 %in% c('EGY', 'NLD')]  <- 'Capture-recapture'
 dta$var <- factor(dta$var, levels=c('Case notifications','Prevalence survey',
                                     'High income','Capture-recapture'),
-                  labels=c('Case notifications, ')
+                  labels=c('Case notifications', 'Prevalence survey',
+                           'High-income','Capture-recapture'))
 
 p <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') 
 
