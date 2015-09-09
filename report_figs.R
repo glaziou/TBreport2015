@@ -720,10 +720,12 @@ p2 <- qplot(old.prev, reorder(country, change), data=post2[iso3 %ni% c('PHL', 'V
   theme_bw(base_size=18)
 
 title.grob <- textGrob(
-    label = '\nFigure B2.2.1. Estimates of TB prevalence (all ages, all forms of TB) for 12 countries,
-    before and after results from national TB prevalence surveys became available.\n
-    Panels are ordered by the size of the before-after difference. Crosses mark 
-    the best estimate and the horizontal lines mark 95% uncertainty intervals.\n',
+    label = '\nFigure B2.2.1: Estimates of TB prevalence (all ages, all forms of TB) for 17 
+    countries, before (in blue) and after (in red) results from national prevalence surveys 
+    became available. Panels are ordered according to the size of the before-after difference. 
+    The wide uncertainty interval of the post-survey estimate for the United Republic of 
+    Tanzania is because laboratory challenges meant that it was only possible to directly 
+    estimate the prevalence of smear-positive (as opposed to bacteriologically confirmed) TB.\n',
     x = unit(0, "lines"), 
     y = unit(0, "lines"),
     hjust = 0, vjust = 0,
