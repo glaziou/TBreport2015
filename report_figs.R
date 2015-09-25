@@ -449,9 +449,11 @@ library(grid)
 
 # 2012 top 10 
 cod <- data.table(cause=c('Ischaemic heart disease','Stroke','COPD','Lower respiratory infections',
-                          'Tracheal, bronchus, lung infections','HIV/AIDS','TB','Diarrheal diseases',
+                          'Tracheal, bronchus, lung cancer','HIV/AIDS','TB','Diarrheal diseases',
                           'Diabetes mellitus','Road injury'),
                   ncd=c(T,T,T,F,F,F,F,F,T,T),
+#                  n=c(7.4, 6.7, 3.1, 3.1, 1.6, 1.5, 1.3, 1.5, 1.5, 1.3),
+#                  tbhiv=c(rep(0, 5), rep(0.32, 2), rep(F,3)))
                   n=c(7.4, 6.7, 3.1, 3.1, 1.6, 0.98, 1.18, 1.5, 1.5, 1.3),
                   tbhiv=c(rep(0, 5), rep(0.422545, 2), rep(F,3)))
 cod[, total := n + tbhiv]
@@ -480,8 +482,20 @@ vp <- viewport(width=0.3, height=0.3, x=0.8, y=0.25)
 
 pdf(file='fig/top10C0D.pdf', width=8, height=6)
 print(p)
-print(inset, vp = vp)
+#print(inset, vp = vp)
 dev.off()
+
+
+p2 <- qplot(reorder(cause, total), total, data=cod2, geom='bar', stat='identity', 
+           fill=I('grey50'), colour=I('black')) +
+    geom_bar(aes(cause, n), stat='identity', fill=I('white'), colour=I('black')) +
+    xlab('') + ylab('Millions (2014)') +
+    coord_flip()
+
+#pdf(file='fig/TBHIVdeaths2014.pdf', width=8, height=6)
+print(p2)
+#print(inset, vp = vp)
+#dev.off()
 
 
 p2 <- qplot(reorder(cause, total), total, data=cod[ncd==F], geom='bar', stat='identity', 
