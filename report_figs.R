@@ -539,12 +539,25 @@ dev.off()
 # Maps
 #----------------------------------------------------
 library(whomap)
+
+# epi regions
+dta <- merge(est[year==2014,.(iso3)], cty[, .(iso3, g.est)], by='iso3')
+dta$var <- factor(dta$g.est, labels=c('Africa, high-HIV', 'Africa, low-HIV',
+                                      'Central Europe','East Europe',
+                                      'High-income','East Mediterranean',
+                                      'Latin America','South East Asia', 'West Pacific'))
+
+whomap(X=dta) + scale_fill_brewer("Epi regions", palette='Set1')
+ggsave(file='fig/epiregions.pdf', width=10, height=8)
+
+
 yr <- 2014
+
 dta <- est[year==2014, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
 
 # VR countries 
-dta$var <- dta$source.mort %in% c("VR","VR imputed","imputed")
+dta$var <- dta$source.mort=='imputed' 
 whomap(X=dta, Z=scale_fill_manual("VR/Survey", values=c('grey','darkgreen')), legendpos='none')
 
 ggsave(file='fig/fig2_11_map_VRcountries.pdf', width=10, height=8)
@@ -586,6 +599,10 @@ p1 <- arrangeGrob(p, main = title.grob)
 
 pdf(file='fig/fig2_1_map_incmethod.pdf', width=10, height=8)
 (p1)
+dev.off()
+
+pdf(file='fig/fig2_1_map_incmethod_clean.pdf', width=10, height=8)
+(p)
 dev.off()
 
 write.csv(dta[, list(iso3, source.inc=var)], file='tab/inc_method.csv', row.names=F)
