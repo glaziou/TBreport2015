@@ -74,7 +74,7 @@ betaop <- function(ev1, ev2, se1, se2, op="*", distr=F, nsim=500000){
 
 
 # error propagation - requires dplyr
-propagate <- function(.data, f) {
+pgate <- function(.data, f) {
   # errors in x and y are stored in x.se and y.se
   exprs = list(
     deparse(f[[3]]),

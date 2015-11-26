@@ -542,6 +542,7 @@ library(whomap)
 
 # epi regions
 dta <- merge(est[year==2014,.(iso3)], cty[, .(iso3, g.est)], by='iso3')
+dta$g.est[dta$iso3=='SSD'] <- 'AFRhigh'
 dta$var <- factor(dta$g.est, labels=c('Africa, high-HIV', 'Africa, low-HIV',
                                       'Central Europe','East Europe',
                                       'High-income','East Mediterranean',
@@ -551,10 +552,15 @@ whomap(X=dta) + scale_fill_brewer("Epi regions", palette='Set1')
 ggsave(file='fig/epiregions.pdf', width=10, height=8)
 
 
+# prev
 yr <- 2014
-
 dta <- est[year==2014, list(iso3, g.hbc22, newinc, snewinc, inc, inc.num, tbhiv, mort, mort.nh, prev, 
                             mort.num, source.inc, source.mort, source.prev)]
+dta$var <- dta$source.prev
+dta$var[is.na(dta$var)] <- 'indirect'
+dta$var[dta$iso3 %in% c('TUR', 'PRK', 'KAZ', 'SSD')] <- 'indirect'
+whomap(X=dta, Z=scale_fill_manual("survey", values=c('grey','darkgreen')), legendpos='none')
+ggsave(file='fig/PScountries.pdf', width=10, height=8)
 
 # VR countries 
 dta$var <- dta$source.mort=='imputed' 
@@ -576,8 +582,8 @@ dta$var[dta$iso3 %in% c('FRA', 'RUS')]  <- 'High income'
 dta$var[dta$iso3 %in% c('EGY', 'NLD')]  <- 'Capture-recapture'
 dta$var <- factor(dta$var, levels=c('Case notifications','Prevalence survey',
                                     'High income','Capture-recapture'),
-                  labels=c('Case notifications', 'Prevalence survey',
-                           'High-income','Capture-recapture'))
+                  labels=c('Case notifications,\nexpert opinion', 'Prevalence survey',
+                           'Case notifications,\nstandard adjustment','Capture-recapture'))
 
 p <- whomap(X=dta) + scale_fill_brewer('Main method', palette='Set1') 
 
@@ -769,4 +775,41 @@ print(p2b)
 dev.off()
 
 write.csv(post2, file='output/before_after.csv', row.names=F)
+ 
+
+# change in incidence pre vs post survey
+post3 <- post2[year>=2012]
+load('Rdata/est.Rdata')
+load('../gtb2015/Rdata/old.Rdata')
+post3b <- merge(post3, est[,.(iso3,year,inc,inc.lo,inc.hi)], by=c('iso3','year'), all.x=T, all.y=F)
+lcty <- post3b$iso3[post3b$year==2013]
+inc2013 <- old[iso3 %in% lcty & year==2013, .(iso3,year,oinc=inc,oinc.lo=inc.lo,oinc.hi=inc.hi)]
+
+load('../gtb2014/Rdata/old.Rdata')
+lcty <- post3b$iso3[post3b$year==2012]
+inc2012 <- old[iso3 %in% lcty & year==2012, .(iso3,year,oinc=inc,oinc.lo=inc.lo,oinc.hi=inc.hi)]
+addinc <- rbind(inc2012, inc2013)
+post3c <- merge(post3b, addinc, by=c('iso3','year'))
+post3c$change <- post3c$inc - post3c$oinc
+
+sel <- post3c$iso3=='IDN'
+sel2 <- old$iso3=='IDN' & old$year==2012
+post3c$oinc[sel] <- old$inc[sel2]
+post3c$oinc.lo[sel] <- old$inc.lo[sel2]
+post3c$oinc.hi[sel] <- old$inc.hi[sel2]
+
+p3 <- qplot(oinc, reorder(country, change), data=post3c, geom='point', size=I(3), colour=I('lightblue'), 
+            fill=I('lightblue')) +
+  geom_segment(aes(x=oinc.lo, xend=oinc.hi, y=country, yend=country), colour=I('lightblue'),
+               size=I(3)) +
+  geom_point(aes(inc, country), colour=I('red'), size=I(1)) +
+  geom_segment(aes(x=inc.lo, xend=inc.hi, y=country, yend=country), 
+               colour=I('red'), size=I(1)) +
+  facet_wrap(~region, nrow=1, scales='free_y') +
+  scale_x_log10(breaks=c(50,100,200,500)) +
+  xlab('Incidence per 100,000 population per year (log scale)') + ylab('') +
+  theme_bw(base_size=18)
+pdf(width=10, height=6, file='fig/prepostsurveyInc.pdf')
+print(p3)
+dev.off()
 
